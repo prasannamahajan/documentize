@@ -16,7 +16,6 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition="MEDIUMINT NOT NULL AUTO_INCREMENT")
 	private Integer user_id;
 	@Column
 	private String email;

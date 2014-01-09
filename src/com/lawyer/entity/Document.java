@@ -12,7 +12,8 @@ public class Document implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition="MEDIUMINT NOT NULL AUTO_INCREMENT")
+	// This is not right
+	//@Column(columnDefinition="MEDIUMINT NOT NULL AUTO_INCREMENT")
 	private Integer documentId;
 	private String catagory;
 	
