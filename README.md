@@ -107,8 +107,8 @@ at Path
 
  * and add this under ```<socket-binding-group>``` to bind port to mail session
 
- ``
+ ```
   <outbound-socket-binding name="mail-smtp-gmail">
             <remote-destination host="smtp.gmail.com" port="465"/>
   </outbound-socket-binding>
-``
+```
