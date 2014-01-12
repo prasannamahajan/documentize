@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lawyer.entity.User;
 import com.lawyer.filter.EntityManagerListener;
+import com.lawyer.user.service.UserAccount;
 
 import org.slf4j.Logger;
 
@@ -29,6 +30,8 @@ public class UpdateUserProfile extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException,
 			JSONException {
+		UserAccount account = new UserAccount();
+		
 		Logger logger = LoggerFactory.getLogger(UpdateUserProfile.class);
 		String first_name = request.getParameter("first_name");
 		String last_name = request.getParameter("last_name");
@@ -36,25 +39,12 @@ public class UpdateUserProfile extends HttpServlet {
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
 		int postal_code = Integer.parseInt(request.getParameter("postal_code").toString());
-		logger.info("Postal code {}",postal_code);
 		long phone_number = Long.parseLong(request.getParameter("phone_number").toString());
 
 		EntityManager em = EntityManagerListener.getEntityManager();
 		String email = request.getSession().getAttribute("email").toString();
-		int user_id = (Integer)request.getSession().getAttribute("userId");
-		User user = new User(user_id,email, first_name, last_name, street_address,
-				city, state, postal_code, phone_number);
-		boolean result = true;
-		try {
-			em.getTransaction().begin();
-			em.merge(user);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			result = false;
-			logger.error("Update profile failed");
-			e.printStackTrace();
-
-		}
+		
+		boolean result = account.update(first_name, last_name, email, street_address, city, state, postal_code, phone_number);
 		response.setContentType("application/json");
 		JSONObject reply = new JSONObject();
 		reply = writeResponse(result);
