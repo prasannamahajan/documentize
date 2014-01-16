@@ -105,11 +105,10 @@ var buttons = Ext.create('Ext.container.Container', {
 					password:passwd
 					},
                     success: function(form, action) {
-                       Ext.Msg.alert('Success', "Please Check Your email to activate your account");
-                       window.location = "./login.html";
+                       window.location = "./response.jsp?id=1";
                     },
                     failure: function(form, action) {
-                        Ext.Msg.alert('Failed', action.result.msg);
+                    	window.location = "./response.jsp?id=4";
                     }
                 });
             }

@@ -45,7 +45,7 @@ Ext.onReady(function(){
 	
 	function renderDoc(value, p, record) {
         return Ext.String.format(
-            '<b><a href="Lawyer/user/getdocument?documentId={1}" target="_blank">{0}</a>',
+            '<b><a href="./get_document_in_pdf?documentId={1}&date=1" target="_blank">{0}</a>',
             value,
             record.data.documentId
         );
@@ -53,7 +53,7 @@ Ext.onReady(function(){
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 500,
-        height: 500,
+      //  height: 500,
         title: 'Document Vault',
         store: store,
 		frame: true,
