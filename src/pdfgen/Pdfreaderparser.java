@@ -26,7 +26,7 @@ public class Pdfreaderparser{
 	//	public static char s1[];
 
 	
-	 public void pdfReader()throws IOException
+	 public void pdfReader(String realpath)throws IOException
 {
 		Xmltohashmap xh= new Xmltohashmap();
 		System.out.println(xh.hmap);
@@ -67,7 +67,7 @@ byte[] bytes = text.getBytes(UTF_8);
 //System.out.println(""+new String(bytes, UTF_8));
 
 try {
-	OutputStream file = new FileOutputStream(new File("C:\\Proj\\output.pdf"));
+	OutputStream file = new FileOutputStream(new File(realpath+"\\"+"output.pdf"));
 
 	Document document = new Document();
 	

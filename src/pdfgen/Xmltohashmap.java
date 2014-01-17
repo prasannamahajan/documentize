@@ -16,10 +16,10 @@ import org.xml.sax.SAXException;
 import pdfgen.Pdfreaderparser;
 public class Xmltohashmap {
 	public static HashMap<String,String>hmap=new HashMap<String,String>();
-	public void storexml()throws ParserConfigurationException, SAXException, IOException
+	public void storexml(String xml_filepath)throws ParserConfigurationException, SAXException, IOException
 	{
 
-		File fxml=new File("C:\\Proj\\file.xml");
+		File fxml=new File(xml_filepath);
 		DocumentBuilderFactory dbfactory=DocumentBuilderFactory.newInstance();
 		DocumentBuilder dbuilder=dbfactory.newDocumentBuilder();
 		Document doc=dbuilder.parse(fxml);
@@ -45,8 +45,7 @@ public class Xmltohashmap {
 		}
 	    System.out.println(hmap);
 	    
-		Pdfreaderparser prp=new Pdfreaderparser();
-		prp.pdfReader();
+		
 	}
 
 }

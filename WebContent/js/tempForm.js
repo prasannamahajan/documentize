@@ -19,57 +19,57 @@ Ext
 						items : [ {
 							xtype : 'textfield',
 							fieldLabel : 'New Surname',
-							name : 'nsname',
+							name : '1',
 						// allowBlank:true
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'New Firstname',
-							name : 'nfname',
+							name : '2',
 						// allowBlank:true
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'Old Surname',
-							name : 'osname',
+							name : '3',
 						// allowBlank:false
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'Old Firstname',
-							name : 'ofname',
+							name : '4',
 						// allowBlank:false
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'Profession',
-							name : 'proff',
+							name : '5',
 						// allowBlank:false
 						}, {
 							xtype : 'textareafield',
 							fieldLabel : 'Address',
-							name : 'address',
+							name : '6',
 						// allowBlank:false
 						}, {
 							xtype : 'datefield',
 							fieldLabel : 'Date for taking new name',
-							name : 'date1',
+							name : '7',
 						// allowBlank:false
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'Name of Second Witness',
-							name : 'fiwina',
+							name : '8',
 						// allowBlank:false
 						}, {
 							xtype : 'textareafield',
 							fieldLabel : 'Address of 1st Witness',
-							name : 'adfiwit',
+							name : '9',
 						// allowBlank:false
 						}, {
 							xtype : 'textfield',
 							fieldLabel : 'Name of 2nd Witness',
-							name : 'nasewi',
+							name : '10',
 						// allowBlank:false
 						}, {
 							xtype : 'textareafield',
 							fieldLabel : 'Address of 2nd Witness',
-							name : 'adsewit',
+							name : '11',
 						// allowBlank:false
 						} ],
 

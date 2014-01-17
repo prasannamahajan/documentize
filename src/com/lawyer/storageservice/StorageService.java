@@ -1,8 +1,17 @@
-package storageservices;
+package com.lawyer.storageservice;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.TreeMap;
 
+import javax.faces.convert.Converter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,17 +61,38 @@ public class StorageService extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean result=true;
 		Xmlgeneric xg=new Xmlgeneric();
-		xg.l2.add(request.getParameter("nsname"));
-		xg.l2.add(request.getParameter("nfname"));
-		xg.l2.add(request.getParameter("osname"));
-		xg.l2.add(request.getParameter("ofname"));
-		xg.l2.add(request.getParameter("proff"));
-		xg.l2.add(request.getParameter("address"));
-		xg.l2.add(request.getParameter("date1"));
-		xg.l2.add(request.getParameter("fiwina"));
-		xg.l2.add(request.getParameter("adfiwit"));
-		xg.l2.add(request.getParameter("nasewi"));
-		xg.l2.add(request.getParameter("adsewit"));
+		Enumeration parameters=request.getParameterNames();
+		
+		request.getSession().setAttribute("userId",1);
+		request.getSession().setAttribute("documentId", 3);
+		String userId = request.getSession().getAttribute("userId").toString();
+		String documentId = request.getSession().getAttribute("documentId").toString();
+		
+		
+		
+		String param=null;
+		int pos=0,length=0; 
+		String store=null;
+		int question_id;
+	//	LinkedHashMap<String,String> storemap=new LinkedHashMap<String,String>();
+		xg.init();
+		while(parameters.hasMoreElements())
+		{
+			
+			param=(String)parameters.nextElement();
+			question_id=Integer.parseInt(param);
+			xg.tmap.put(question_id,request.getParameter(param));
+	
+		}
+		Iterator iter = xg.tmap.keySet().iterator();
+		while(iter.hasNext()) {
+		    Integer key = (Integer)iter.next();
+		    String question=Integer.toString(key);
+		    String val = (String)xg.tmap.get(key);
+		    xg.l1.add(question);
+		    xg.l2.add(val);
+		}
+		
 		response.setContentType("application/json");
 		JSONObject reply1=new JSONObject();
 		try {
@@ -73,9 +103,16 @@ public class StorageService extends HttpServlet {
 		}	
 		response.getWriter().write(reply1.toString());
     	response.getWriter().flush();
-    	System.out.println(xg.l2);
-    	try {
-			documentgen();
+    
+    	System.out.println("treemap "+xg.tmap);
+    	//System.out.println("List 2:"+xg.l2);
+   	ServletContext context=request.getServletContext();
+    	xg.path=context.getRealPath("/");
+    	xg.sample_pdf_path=xg.path;
+    	xg.path=xg.path+"//"+"userdocument";
+    	xg.sample_pdf_path=xg.sample_pdf_path+"\\"+"sampledocument"+"\\"+documentId+"\\"+"sample.pdf";
+    try {
+			documentgen(userId,documentId);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,9 +126,9 @@ public class StorageService extends HttpServlet {
 	}
 	
 
-	public void documentgen() throws ParserConfigurationException, TransformerException, IOException, SAXException {
-		XmlCreator xmg=new XmlCreator();
-		xmg.createxml();
+	public void documentgen(String userId,String documentId) throws ParserConfigurationException, TransformerException, IOException, SAXException {
+		PdfStorage pdfs=new PdfStorage();
+		pdfs.createfolder(userId,documentId);
 	}
 
 	protected JSONObject writeResponse(boolean result)throws JSONException {
@@ -102,7 +139,7 @@ public class StorageService extends HttpServlet {
 		}
 		else
 		{
-			res.put("success", false);
+			res.put("failure", false);
 		}
 		
 		return res;
