@@ -1,0 +1,66 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "card-0",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+            	"html":"<h6>Your Information</h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Current Name",
+                    "name": "1"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Your guaranteer Name",
+                    "name": "2"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Age",
+                    "name": "3"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Location",
+                    "name": "4"
+                }
+            ]
+        },
+        {
+            "id": "card-1",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+                "html":"<h6></h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "New Name",
+                    "name": "5"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Place where affidavit is made",
+                    "name": "6"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Day",
+                    "name": "7"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Month",
+                    "name": "8"
+                },{
+                    "xtype": "textfield",
+                    "fieldLabel": "Year",
+                    "name": "9"
+                }
+            ]
+        }]
+}

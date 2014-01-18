@@ -31,42 +31,27 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-
-/**
- * Servlet implementation class StorageService
- */
 @WebServlet("/StorageService")
 public class StorageService extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public StorageService() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**y 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean result=true;
 		Xmlgeneric xg=new Xmlgeneric();
 		Enumeration parameters=request.getParameterNames();
 		
-		request.getSession().setAttribute("userId",1);
-		request.getSession().setAttribute("documentId", 3);
+		//System.out.println("*** "+request.getParameter("documentId"));
+		//request.getSession().setAttribute("userId",1);
+		//request.getSession().setAttribute("documentId", 3);
 		String userId = request.getSession().getAttribute("userId").toString();
-		String documentId = request.getSession().getAttribute("documentId").toString();
+		String documentId = request.getParameter("documentId").toString();
 		
 		
 		
@@ -80,8 +65,15 @@ public class StorageService extends HttpServlet {
 		{
 			
 			param=(String)parameters.nextElement();
+			try{
 			question_id=Integer.parseInt(param);
 			xg.tmap.put(question_id,request.getParameter(param));
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
 	
 		}
 		Iterator iter = xg.tmap.keySet().iterator();
@@ -104,13 +96,13 @@ public class StorageService extends HttpServlet {
 		response.getWriter().write(reply1.toString());
     	response.getWriter().flush();
     
-    	System.out.println("treemap "+xg.tmap);
+    //	System.out.println("treemap "+xg.tmap);
     	//System.out.println("List 2:"+xg.l2);
    	ServletContext context=request.getServletContext();
     	xg.path=context.getRealPath("/");
     	xg.sample_pdf_path=xg.path;
     	xg.path=xg.path+"//"+"userdocument";
-    	xg.sample_pdf_path=xg.sample_pdf_path+"\\"+"sampledocument"+"\\"+documentId+"\\"+"sample.pdf";
+    	xg.sample_pdf_path=xg.sample_pdf_path+"//"+"sampledocument"+"//"+documentId+"//"+"sample.pdf";
     try {
 			documentgen(userId,documentId);
 		} catch (ParserConfigurationException e) {
@@ -136,6 +128,9 @@ public class StorageService extends HttpServlet {
 		if(result==true)
 		{
 		res.put("success", true);
+		Xmlgeneric xg = new Xmlgeneric();
+		res.put("epoch", xg.documentEpoch);
+		res.put("userId",xg.userId);
 		}
 		else
 		{
@@ -145,9 +140,4 @@ public class StorageService extends HttpServlet {
 		return res;
 	}
 	
-	
-	
-		
-	
-
 }

@@ -10,7 +10,7 @@ public class Xmlgeneric {
 	static ArrayList<String> l1;
 	static ArrayList<String> l2;
 	static String str;
-	public static String path,sample_pdf_path;
+	public static String path,sample_pdf_path,outputPath,documentEpoch,userId;
 	public String randomnumber=null;
 	static TreeMap<Integer,String> tmap;
 	

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
     <meta charset="utf-8">
-    <title>Generate Document</title>
+    <title>Dynamic User Interface</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -10,14 +10,16 @@
 	
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <script src="js/md5.js"></script>
+ <!-- -  <script src="js/md5.js"></script>-->
 	
 	<!-- ext js with neptune theme
 	==========================================================  -->
 	 <script src="ext-all.js"></script>
 	 <script src="ext-theme-neptune.js"></script>
- 
-    <script type="text/javascript" src="js/tempForm.js"></script>
+ 	<!--  
+ 	<script type="text/javascript" src="Js/Cardmain.js?1"></script>
+    -->
+    <script type="text/javascript" src="js/wizard.js?1"></script>
 	<link rel="stylesheet" type="text/css" href="header.css"/>
 	<link rel="stylesheet" type="text/css" href="resources/ext-theme-neptune/ext-theme-neptune-all.css" />
   </head>
@@ -50,11 +52,16 @@
 <!-- body
 ========================================================== -->
 <div class="container" style="">
+
 	<div class="row-fluid" style="padding:10px" >
-		<div class="span12">
-		<a href="./user/home.html">Home</a>
-		<h1 class="text-success">Rental Agreement</h1>
-		<embed style="width:1000px;height:1000px;margin-top:10px;" src="./user/get_document_in_pdf">
+		<div class="span10 offset2">
+		
+		<center>
+		<div id="error"></div>
+		
+		<div id="form-ct" ></div>
+		
+		</center>
 		</div>
 	</div>
 	</div>

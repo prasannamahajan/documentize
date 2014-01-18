@@ -1,0 +1,95 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "card-0",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+                "html":"<h6>Your Information</h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Name",
+                    "name": "1"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Guardian Name",
+                    "name": "9"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Name of Your Institute",
+                    "name": "10"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Phone Number",
+                    "name": "12"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Your Address",
+                    "name": "11"
+                }
+            ]
+        },
+        {
+            "id": "card-1",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+                "html":"<h6>Information about affidavit by applicant</h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Day",
+                    "name": "2"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Month",
+                    "name": "3"
+                },{
+                    "xtype": "textfield",
+                    "fieldLabel": "Year",
+                    "name": "4"
+                },{
+                    "xtype": "textfield",
+                    "fieldLabel": "Affidavit verification place",
+                    "name": "5"
+                },{
+                "html":"<h6>Information about affidavit by guaedian</h6><br>"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Day",
+                    "name": "6"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Month",
+                    "name": "7"
+                },{
+                    "xtype": "textfield",
+                    "fieldLabel": "Year",
+                    "name": "8"
+                }
+            ]
+        },
+        {
+            "id": "card-2",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+                "html":"<h6>Govt Info</h6><br>"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Name of Oath commisionar",
+                    "name": "13"
+                }
+            ]
+        }]
+}

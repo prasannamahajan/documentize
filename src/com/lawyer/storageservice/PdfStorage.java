@@ -33,6 +33,8 @@ public class PdfStorage {
 		System.out.println("Epoch Date:"+epoch_time);
 	    boolean files = new File(realpath+"\\"+epoch_time+"\\"+"image_folder").mkdirs();
 		realpath=realpath+"\\"+epoch_time;
+		xg.documentEpoch=epoch_time;
+		xg.userId=id;
 		xmlc.createxml(realpath);
 //		createoutputpdf(realpath);
 	}

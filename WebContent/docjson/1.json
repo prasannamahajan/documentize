@@ -1,0 +1,145 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "card-0",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+            	"html":"<h6>Basic information</h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Owner Name",
+                    "name": "1"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Tenant Name",
+                    "name": "2"
+                },
+                {
+                    "xtype": "datefield",
+                    "fieldLabel": "Date of making agreement",
+                    "name": "3"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Location",
+                    "name": "4"
+                }
+            ]
+        },
+        {
+            "id": "card-1",
+            "xtype": "fieldcontainer",
+            "items": [
+                {
+                "html":"<h6>Terms and Condition</h6><br>"
+            	},
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Limitations",
+                    "name": "5"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Tenure",
+                    "name": "6"
+                },
+                {
+                    "xtype": "datefield",
+                    "fieldLabel": "Start date",
+                    "name": "7"
+                },
+                {
+                    "xtype": "datefield",
+                    "fieldLabel": "End date",
+                    "name": "8"
+                },{
+                    "xtype": "textfield",
+                    "fieldLabel": "Rent Amount",
+                    "name": "9"
+                }
+            ]
+        },
+        {
+            "id": "card-2",
+            "xtype": "fieldcontainer",
+            "items": [
+                 {
+                "html":"<h6>Contunued ... </h6><br>"
+                },
+                
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Installment Amount",
+                    "name": "10"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Place to be payed at",
+                    "name": "11"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Late fees",
+                    "name": "12"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Charges on returned cheques",
+                    "name": "13"
+                },
+                 {
+                    "xtype": "textfield",
+                    "fieldLabel": "Security Deposit",
+                    "name": "14"
+                }
+            ]
+        },
+        {
+            "id": "card-3",
+            "xtype": "fieldcontainer",
+            "items": [
+                
+               
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Exceptional cases for break of premises",
+                    "name": "15"
+                },
+                {
+                    "xtype": "textareafield",
+                    "fieldLabel": "Utility not included in agreement",
+                    "name": "16"
+                }
+            ]
+        },
+        {
+            "id": "card-4",
+            "xtype": "fieldcontainer",
+            "items": [
+                 {
+                "html":"<h6>Lawyer and Other Information </h6><br>"
+                },
+                
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Lawyer Name",
+                    "name": "17"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Name of First Witness",
+                    "name": "18"
+                },
+                {
+                    "xtype": "textfield",
+                    "fieldLabel": "Name of Second Witness",
+                    "name": "19"
+                }
+            ]
+        }
+    ]
+}
