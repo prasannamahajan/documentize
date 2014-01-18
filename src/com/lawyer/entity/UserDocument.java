@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name = "UserDocument.getDocumentsByUserId", query = "Select d.document_id,doc.documentName from UserDocument d,Document doc where d.user_id=:user_id and d.document_id = doc.documentId")
+@NamedQuery(name = "UserDocument.getDocumentsByUserId", query = "Select d.document_id,d.date,doc.documentName from UserDocument d,Document doc where d.user_id=:user_id and d.document_id = doc.documentId")
 @IdClass(UserDocumentPK.class)
 public class UserDocument implements Serializable {
 
@@ -17,7 +17,16 @@ public class UserDocument implements Serializable {
 	private Integer user_id;
 	@Id
 	private Integer document_id;
-	private byte[] pdf_file;
+	@Id
+	private long date;
+	public long getEpoch_time() {
+		return date;
+	}
+
+	public void setEpoch_time(long epoch_time) {
+		this.date = epoch_time;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	public UserDocument() {
@@ -38,14 +47,6 @@ public class UserDocument implements Serializable {
 
 	public void setDocument_id(Integer document_id) {
 		this.document_id = document_id;
-	}
-
-	public byte[] getPdf_file() {
-		return this.pdf_file;
-	}
-
-	public void setPdf_file(byte[] pdf_file) {
-		this.pdf_file = pdf_file;
 	}
 
 }

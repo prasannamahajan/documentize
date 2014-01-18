@@ -46,7 +46,7 @@ public class GetDocumentList extends HttpServlet {
 			}
 			
 			Query query = em
-					.createNativeQuery("Select userdoc.document_id,doc.documentName "
+					.createNativeQuery("Select userdoc.document_id,doc.documentName,userdoc.date "
 							+ "from UserDocument userdoc,Document doc"
 							+ " where "
 							+ "userdoc.user_id=:user_id "
@@ -69,8 +69,10 @@ public class GetDocumentList extends HttpServlet {
 				JSONObject docData = new JSONObject();
 				int documentId = (Integer) docIdName[0];
 				String documentName = (String) docIdName[1];
+				String documentDate = docIdName[2].toString();
 				docData.put("documentId", documentId);
 				docData.put("documentName", documentName);
+				docData.put("documentDate", documentDate);
 				data.put(docData);
 			}
 

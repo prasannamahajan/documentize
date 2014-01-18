@@ -13,7 +13,7 @@ Ext.onReady(function(){
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
         fields: [
-            'documentId', 'documentName'
+            'documentId', 'documentName','documentDate'
         ],
         idProperty: 'documentId'
     });
@@ -45,9 +45,10 @@ Ext.onReady(function(){
 	
 	function renderDoc(value, p, record) {
         return Ext.String.format(
-            '<b><a href="./get_document_in_pdf?documentId={1}&date=1" target="_blank">{0}</a>',
+            '<b><a href="./get_document_in_pdf?documentId={1}&epochTime={2}" target="_blank">{0}</a>',
             value,
-            record.data.documentId
+            record.data.documentId,
+            record.data.documentDate
         );
     }
 	
@@ -67,10 +68,17 @@ Ext.onReady(function(){
 		{
             text: "Document ",
             dataIndex: 'documentName',
-            width: '70%',
+            width: '50%',
             align: 'left',
             sortable: false,
 			renderer: renderDoc
+        },
+        {
+            text: "Date ",
+            dataIndex: 'documentDate',
+            width: '20%',
+            align: 'left',
+            sortable: false
         },{
             xtype:'actioncolumn',
             width:'20%',
