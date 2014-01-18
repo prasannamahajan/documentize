@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Iterator;
 
 import com.itextpdf.awt.geom.misc.RenderingHints;
 import com.itextpdf.text.*;
@@ -58,11 +59,11 @@ public class pdf_generation_try5 {
         
 	  try {
 	      INPUTFILE=sample_pdf_path;
-	      System.out.println("Inputfile: "+INPUTFILE);
+	     // System.out.println("Inputfile: "+INPUTFILE);
 		  Document document = new Document();
           //PdfWriter.getInstance(document, new FileOutputStream(OUTPUTFILE));
 		  OUTPUTFILE=filepath(realpath);
-		  System.out.println("Outputfile"+OUTPUTFILE);
+		  //System.out.println("Outputfile"+OUTPUTFILE);
           PdfReader reader = new PdfReader(INPUTFILE);
           PdfWriter writer = PdfWriter.getInstance(document,new FileOutputStream(OUTPUTFILE));
    //     writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(),PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
@@ -191,7 +192,7 @@ public class pdf_generation_try5 {
 		String u;
 	    String k;
 		Xmltohashmap xh= new Xmltohashmap();
-  		System.out.println(xh.hmap);
+  		//System.out.println(xh.hmap);
   		int i=reader.getNumberOfPages();
   		String s1=null;
   		for(int j=1;j<=i;j++)
@@ -199,7 +200,7 @@ public class pdf_generation_try5 {
   			
   			s=PdfTextExtractor.getTextFromPage(reader,j );
   		    k=s.format(s, null);
-  		    System.out.println(k);
+  		   // System.out.println(k);
   			s1=s1+s;
   			int st1 = s1.length();
   		//	String nullChar=s1.substring(0,4);
@@ -207,12 +208,28 @@ public class pdf_generation_try5 {
   		//	System.out.println("This is null character"+nullChar);
   			
   		}
-  				
-  		for(int f=0;f<xh.hmap.size();f++)
+  		Xmlgeneric xg = new Xmlgeneric();
+  		Iterator<Integer> iter = xg.tmap.keySet().iterator();
+  		for(int f=0;f<xg.tmap.size();f++)
   		{
-  		String key="*"+(String)xh.hmap.keySet().toArray()[f]+"*";
+  	
+  			/*---------------Jaydatta---------------
+  			 * String key="*"+(String)xh.hmap.keySet().toArray()[f]+"*";
+  		
   		String value=(String)xh.hmap.values().toArray()[f];
-  		System.out.println("Key: ["+key+"]   Value: ["+value+"]");
+ */ 	
+  			
+  		//-----------------------Prasanna----------------
+  			
+  			
+  			
+  			String key="";
+  			String value="";
+  				int keyOfMap = iter.next();
+  				key="*"+keyOfMap+"*";
+  				value=xg.tmap.get(keyOfMap); 
+//  				System.out.println("key :=> "+key+": "+xg.tmap.get(keyOfMap));
+
   		
   	
   	 if(f==0)
@@ -375,7 +392,7 @@ for (int i = 0; i < number; i++) {
                           g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING,
                                   RenderingHints.VALUE_RENDER_QUALITY));
                           boolean b = g2d.drawImage(ii.getImage(), 0, 0, 50, 50, null);
-                          System.out.println(b);
+                         // System.out.println(b);
                           ImageIO.write(bi, "jpg", new File("images_changed.jpg"));
                   }
                   catch (Exception e)

@@ -52,22 +52,18 @@ public class StorageService extends HttpServlet {
 		//request.getSession().setAttribute("documentId", 3);
 		String userId = request.getSession().getAttribute("userId").toString();
 		String documentId = request.getParameter("documentId").toString();
-		
-		
-		
+
 		String param=null;
-		int pos=0,length=0; 
-		String store=null;
 		int question_id;
 	//	LinkedHashMap<String,String> storemap=new LinkedHashMap<String,String>();
 		xg.init();
 		while(parameters.hasMoreElements())
 		{
-			
 			param=(String)parameters.nextElement();
 			try{
 			question_id=Integer.parseInt(param);
 			xg.tmap.put(question_id,request.getParameter(param));
+		//	System.out.println("Params : ["+question_id+"]:["+request.getParameter(param)+" ]");
 			}
 			catch(Exception e)
 			{

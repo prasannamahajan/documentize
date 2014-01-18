@@ -36,8 +36,8 @@ public class XmlCreator
 	    Element quest=null;
 	    Element e=null;
 	    Element rootelement=doc.createElement("Tempalte");
-	    System.out.println("size:l1"+xg.l1.size());
-	    System.out.println("size:l2"+xg.l2.size());
+	  //  System.out.println("size:l1"+xg.l1.size());
+	   // System.out.println("size:l2"+xg.l2.size());
 	    doc.appendChild(rootelement);
 	    quest=doc.createElement("Questions");
 	    rootelement.appendChild(quest);

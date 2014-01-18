@@ -26,13 +26,12 @@ import com.lawyer.filter.EntityManagerListener;
 @WebServlet("/user/get_document_in_pdf")
 public class GetDocumentInPdf extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/*private static Logger logger = LoggerFactory.getLogger(GetDocumentInPdf.class);
-	private int userId;
-	private int documentId;
-	private byte[] pdfFile;
-	private EntityManager em = EntityManagerListener.getEntityManager();
-	private EntityTransaction etx = em.getTransaction();
-	*/
+	private static Logger logger = LoggerFactory.getLogger(GetDocumentInPdf.class);
+	private String userId="";
+	private String documentId="";
+	private String epochTime="";
+	private String link;
+	
 	public GetDocumentInPdf() {
 		super();
 
@@ -41,25 +40,23 @@ public class GetDocumentInPdf extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		/*------------------------------------------
+		
 		try{
-			userId = (Integer) request.getAttribute("userId");
-			documentId = Integer.parseInt(request.getParameter("documentId"));
+			 userId = request.getSession().getAttribute("userId").toString();
+			documentId = request.getParameter("documentId").toString();
+			epochTime = request.getParameter("epochTime").toString();
+			link=request.getServletContext().getRealPath("/")+"userdocument\\"+userId+"\\"+documentId+"\\"+epochTime+"\\output.pdf";
+			System.out.println("link : "+link);
 		}
 		catch(NullPointerException e)
 		{
 			logger.info("UserId : {} , documentId: {}",userId,documentId);
 		}
-		User_documentPK pk = new User_documentPK(userId,documentId);
-	
-		etx.begin();
-		User_document document = em.find(User_document.class,pk);
-		etx.commit();
-		*/
+		
 		response.setContentType("application/pdf");
 		OutputStream out = response.getOutputStream();
 		FileInputStream reader = null;
-		File file = new File("C:\\Proj\\output.pdf");
+		File file = new File(link);
 		byte[] bfile = new byte[(int)file.length()];
 //		byte[] bfile = document.getPdf_file();
 		try {
@@ -69,6 +66,7 @@ public class GetDocumentInPdf extends HttpServlet {
 		out.write(bfile);
 		out.flush();
 		} catch (Exception e) {
+		//	e.printStackTrace();
 		}
 	}
 

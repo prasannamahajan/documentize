@@ -12,7 +12,7 @@ public class Xmlgeneric {
 	static String str;
 	public static String path,sample_pdf_path,outputPath,documentEpoch,userId;
 	public String randomnumber=null;
-	static TreeMap<Integer,String> tmap;
+	public static TreeMap<Integer,String> tmap;
 	
 	
 	protected void init()
