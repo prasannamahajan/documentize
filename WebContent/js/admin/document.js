@@ -35,7 +35,7 @@ Ext.onReady(function() {
 		frame : true,
 		bodyPadding : 10,
 		bodyBorder : true,
-		url : 'savedocumenttemplate',
+		url : 'savedata',
 		layout : 'form',
 		fieldDefaults : {
 			labelAlign : 'top',
@@ -72,7 +72,7 @@ Ext.onReady(function() {
         name: 'documentTemplate',
         fieldLabel: 'Document Template',
         msgTarget: 'side',
-        allowBlank: true,
+        allowBlank: false,
         inputWidth: 400,
         buttonText: 'Select File...'
 		},{
