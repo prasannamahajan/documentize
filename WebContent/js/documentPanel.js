@@ -13,7 +13,7 @@ Ext.onReady(function(){
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
         fields: [
-            'documentId', 'documentName','documentDate'
+            'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'}
         ],
         idProperty: 'documentId'
     });
@@ -51,9 +51,13 @@ Ext.onReady(function(){
             record.data.documentDate
         );
     }
+    
+    function renderDate(value, p, r) {
+        return Ext.String.format('{0}', Ext.Date.dateFormat(value, 'M j, Y, g:i a'));
+    }
 	
 	var grid = Ext.create('Ext.grid.Panel', {
-        width: 500,
+        width: 700,
       //  height: 500,
         title: 'Document Vault',
         store: store,
@@ -78,7 +82,8 @@ Ext.onReady(function(){
             dataIndex: 'documentDate',
             width: '20%',
             align: 'left',
-            sortable: false
+            sortable: false,
+            renderer:renderDate
         },{
             xtype:'actioncolumn',
             width:'20%',

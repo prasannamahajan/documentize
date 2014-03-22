@@ -49,4 +49,12 @@ public class UserDocument implements Serializable {
 		this.document_id = document_id;
 	}
 
+	public UserDocument(Integer user_id, Integer document_id, long date) {
+		super();
+		this.user_id = user_id;
+		this.document_id = document_id;
+		this.date = date;
+	}
+
+	
 }
