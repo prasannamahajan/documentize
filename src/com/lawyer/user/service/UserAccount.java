@@ -16,7 +16,7 @@ import com.lawyer.filter.EntityManagerListener;
  */
 public class UserAccount implements Users {
 
-	private static Logger logger = LoggerFactory.getLogger(Users.class);
+	private static Logger logger = LoggerFactory.getLogger(UserAccount.class);
 
 	/**
 	 * Find user by email.

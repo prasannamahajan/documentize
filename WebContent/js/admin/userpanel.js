@@ -7,6 +7,20 @@ Ext.require([
     'Ext.tip.QuickTipManager'
 ]);
 
+var activation = function (actionurl, user_id) {
+	actionurl = actionurl+"?userId="+user_id;
+	Ext.Ajax.request({
+		   url:actionurl ,
+		   success: function(response, opts) {
+			return true;
+		   },
+		   failure: function(response, opts) {
+			   Ext.Msg.alert('Status', 'Changes failed.');
+			   return false;
+		   }
+		});
+};
+
 Ext.onReady(function(){
    Ext.tip.QuickTipManager.init();
    
@@ -46,7 +60,7 @@ Ext.onReady(function(){
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 1250,
-      //  height: 500,
+       height: 600,
         title: 'User Information ',
         store: store,
 		frame: true,
@@ -141,13 +155,20 @@ Ext.onReady(function(){
                 icon: '../resources/icon/correct.png',  // Use a URL in the icon config
                 tooltip: 'Activate',
                 handler: function(grid, rowIndex, colIndex) {
-                    Ext.Msg.alert('Activate','Account Activated');
+                    var rec = grid.getStore().getAt(rowIndex);
+                    activation('activateuser',rec.get('user_id'));
+                    rec.set('active',true);
+                    store.load();
+                  
                 }
             },{
                 icon: '../resources/icon/remove.png',
                 tooltip: 'Deactivate',
                 handler: function(grid, rowIndex, colIndex) {
-                	Ext.Msg.alert('Deactivate Account','Account Deactivated');
+                	 var rec = grid.getStore().getAt(rowIndex);
+                    activation('deactivateuser',rec.get('user_id'));
+                    rec.set('active',false);
+                    store.load();
                 }
             }]
         }],
