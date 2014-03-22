@@ -101,7 +101,7 @@ Ext.onReady(function(){
 		  bbar: Ext.create('Ext.PagingToolbar', {
             store: store,
             displayInfo: true,
-            emptyMsg: "No topics to display"
+            emptyMsg: "No document created "
         }),
         renderTo: 'form-ct'
     });
