@@ -20,7 +20,6 @@ public class Document implements Serializable {
 	
 	private String documentName;
 	private String documentDescription;
-	private byte[] documentTemplate;
 	private static final long serialVersionUID = 1L;
 	
 	public String getDocumentDescription() {
@@ -43,14 +42,6 @@ public class Document implements Serializable {
 		this.documentDescription = documentDescription;
 	}
 
-	public Document(String catagory, String documentName,
-			String documentDescription, byte[] documentTemplate) {
-		super();
-		this.catagory = catagory;
-		this.documentName = documentName;
-		this.documentDescription = documentDescription;
-		this.documentTemplate = documentTemplate;
-	}
 	public Integer getDocument_id() {
 		return this.documentId;
 	}
@@ -72,12 +63,6 @@ public class Document implements Serializable {
 	public void setDocument_name(String document_name) {
 		this.documentName = document_name;
 	}   
-	public byte[] getDocument_template() {
-		return this.documentTemplate;
-	}
 
-	public void setDocument_template(byte[] document_template) {
-		this.documentTemplate = document_template;
-	}
    
 }

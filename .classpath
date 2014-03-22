@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.7.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/itextpdf-5.4.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cos.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

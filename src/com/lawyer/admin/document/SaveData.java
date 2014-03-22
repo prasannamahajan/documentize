@@ -1,6 +1,7 @@
 package com.lawyer.admin.document;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.itextpdf.text.DocumentException;
 import com.lawyer.entity.Document;
 import com.lawyer.filter.EntityManagerListener;
-import com.lawyer.pdfencryption.PdfEncryption;
+//import com.lawyer.pdfencryption.PdfEncryption;
 import com.oreilly.servlet.*;
 import com.oreilly.servlet.multipart.FilePart;
 import com.oreilly.servlet.multipart.MultipartParser;
@@ -81,7 +82,7 @@ public class SaveData<FileItem> extends HttpServlet {
 				FilePart fpart=(FilePart)part;
 				 name=fpart.getFileName();
 				
-				 filepath=databaseStorage();
+				filepath =  databaseStorage();
 				if(name!=null)
 				{
 					 long filesize=fpart.writeTo(new java.io.File(filepath));	
@@ -113,6 +114,7 @@ public class SaveData<FileItem> extends HttpServlet {
 		}	
 		response.getWriter().write(reply1.toString());
     	response.getWriter().flush();
+    	/*
     	PdfEncryption pdfe=new PdfEncryption();
     	try {
 			pdfe.pdfEncrypt();
@@ -121,6 +123,7 @@ public class SaveData<FileItem> extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	*/
 		
 	}
 	protected JSONObject writeResponse(boolean result)throws JSONException {
@@ -159,9 +162,9 @@ public class SaveData<FileItem> extends HttpServlet {
 		 System.out.println("Document id is:"+documentId);
          documentPath=storagepath+documentId+"//"+"sample.pdf";
 		 System.out.println("documentPath:"+documentPath);
-		 doc.setDocument_path(documentPath);
-		 em.merge(doc);
-		 etx.commit();
+		// doc.setDocument_path(documentPath);
+		// em.merge(doc);
+		// etx.commit();
 		 return documentPath;
 	}
 	
