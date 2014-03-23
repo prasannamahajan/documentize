@@ -29,6 +29,7 @@ public class AjaxLogin extends HttpServlet {
     	String email = request.getParameter("email");
     	String password = request.getParameter("password");
     	String keepMeLogin = request.getParameter("remember");
+    	String role="";
     	boolean remember = "true".equals(keepMeLogin);
     	//boolean remember = false;
     	UserAccount account = new UserAccount();
@@ -38,6 +39,7 @@ public class AjaxLogin extends HttpServlet {
     		User user = account.findUserByEmail(email);
     		request.getSession().setAttribute("email", email);
     		request.getSession().setAttribute("role", user.getRole().toString());
+    		role = user.getRole().toString();
     		request.getSession().setAttribute("user", user);
     		request.getSession().setAttribute("userId", user.getUser_id());
     		logger.info("{} logged in",email);
@@ -53,7 +55,7 @@ public class AjaxLogin extends HttpServlet {
     	}
     	response.setContentType("application/json");
     	JSONObject reply = new JSONObject();
-    	reply = writeResponse(result);
+    	reply = writeResponse(result,role);
     	response.getWriter().write(reply.toString());
     	response.getWriter().flush();
     	
@@ -77,12 +79,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		}
 	}
 
-	protected JSONObject writeResponse(boolean result) throws JSONException
+	protected JSONObject writeResponse(boolean result,String role) throws JSONException
 	{
 		JSONObject res = new JSONObject();
 		if(result == true)
 		{
 			res.put("success", true);
+			res.put("role", role);
 		}
 		else
 		{

@@ -29,7 +29,6 @@ public class Lawyer implements java.io.Serializable {
 	private String experience;
 	private byte[] photo;
 	private Set<PracticeArea> practiceAreas = new HashSet<PracticeArea>(0);
-	private Set<Review> reviews = new HashSet<Review>(0);
 	private Set<ServiceFees> serviceFeeses = new HashSet<ServiceFees>(0);
 
 	public Lawyer() {
@@ -41,7 +40,7 @@ public class Lawyer implements java.io.Serializable {
 
 	public Lawyer(int lawyerId, String email, String password, String name,
 			String address, Integer state, String education, String experience,
-			byte[] photo, Set<PracticeArea> practiceAreas, Set<Review> reviews,
+			byte[] photo, Set<PracticeArea> practiceAreas, 
 			Set<ServiceFees> serviceFeeses) {
 		this.lawyerId = lawyerId;
 		this.email = email;
@@ -53,7 +52,7 @@ public class Lawyer implements java.io.Serializable {
 		this.experience = experience;
 		this.photo = photo;
 		this.practiceAreas = practiceAreas;
-		this.reviews = reviews;
+		
 		this.serviceFeeses = serviceFeeses;
 	}
 
@@ -148,14 +147,7 @@ public class Lawyer implements java.io.Serializable {
 		this.practiceAreas = practiceAreas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-	public Set<Review> getReviews() {
-		return this.reviews;
-	}
 
-	public void setReviews(Set<Review> reviews) {
-		this.reviews = reviews;
-	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
 	public Set<ServiceFees> getServiceFeeses() {

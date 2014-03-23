@@ -32,14 +32,16 @@ var buttons = Ext.create('Ext.container.Container', {
 								password : password
 							},
 							success : function(form, action) {
-								window.location = "./user/home.html";
+								var responseObj = Ext.JSON.decode(action.response.responseText);
+								window.location="./"+responseObj.role+"/home.html";
+								//window.location = "./user/home.html";
 							},
 							failure : function(form, action) {
-							Ext.Msg.alert('Failed', action.result.msg);
+							//Ext.Msg.alert('Failed', action.result.msg);
 								var errorDom = Ext.getDom('error');
 								var message="username or password incorrect";
-								errorDom.setHTML(message);
-							//	Ext.Msg.alert('Failed', action.result.msg);
+								var x=document.getElementById("error");
+								x.innerHTML = message;
 							},
 							waitMsg : "Loading..."
 						});

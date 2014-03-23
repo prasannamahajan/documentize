@@ -12,10 +12,8 @@
 		<class>com.lawyer.entity.Document</class>
 		<class>com.lawyer.entity.Lawyer</class>
 		<class>com.lawyer.entity.PracticeArea</class>
-		<class>com.lawyer.entity.Review</class>
 		<class>com.lawyer.entity.ServiceFees</class>
 		<class>com.lawyer.entity.PracticeAreaId</class>
-		<class>com.lawyer.entity.ReviewId</class>
 		<class>com.lawyer.entity.ServiceFeesId</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
