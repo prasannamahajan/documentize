@@ -1,6 +1,7 @@
 package com.lawyer.storageservice;
 
 import java.io.File;
+import com.lawyer.document.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,6 +37,9 @@ public class PdfStorage {
 		xg.documentEpoch=epoch_time;
 		xg.userId=id;
 		xmlc.createxml(realpath);
+		DocumentCRUD info=new DocumentCRUD();
+		info.createDocument(Integer.parseInt(id),Integer.parseInt(document_id),Long.valueOf(epoch_time).longValue());
+		
 //		createoutputpdf(realpath);
 	}
 	private void  createoutputpdf(String realpath) throws FileNotFoundException

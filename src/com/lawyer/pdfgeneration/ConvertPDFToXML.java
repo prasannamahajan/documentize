@@ -30,7 +30,7 @@ public class ConvertPDFToXML {
     static TransformerHandler handler;
     static AttributesImpl atts;
 
-    public static void main(String[] args) throws IOException {
+/*    public static void main(String[] args) throws IOException {
 
             try {
                     Document document = new Document();
@@ -89,5 +89,5 @@ public class ConvertPDFToXML {
     public static void closeXML() throws SAXException {
             handler.endElement("", "", "data");
             handler.endDocument();
-    }
+    }*/
 }
