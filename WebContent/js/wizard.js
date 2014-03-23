@@ -66,7 +66,7 @@ var formPn = new Ext.form.Panel({
                                 var epoch = obj.epoch.toString();
                                 var userId = obj.userId.toString();
                                 var location = "./user/get_document_in_pdf?documentId="+documentId+"&epochTime="+epoch;
-                             	window.location=location;
+                             	//window.location=location;
                              	window.open(location, '_blank');
                              	window.location="./user/home.html";
                         
