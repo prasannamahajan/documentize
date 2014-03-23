@@ -75,7 +75,19 @@ Ext.onReady(function() {
         allowBlank: false,
         inputWidth: 400,
         buttonText: 'Select File...'
-		},{
+		},
+		{
+			 xtype: 'filefield',
+		        name: 'documentTemplate',
+		        fieldLabel: 'Document Json File',
+		        msgTarget: 'side',
+		        allowBlank: false,
+		        inputWidth: 400,
+		        buttonText: 'Select File ...'
+			
+		},
+		
+		{
 			xtype : 'button',
 			text : 'Proceed',
 			formBind : false,
