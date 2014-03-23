@@ -57,7 +57,7 @@ Ext.onReady(function(){
     }
 	
 	var grid = Ext.create('Ext.grid.Panel', {
-        width: 700,
+        width: 600,
       //  height: 500,
         title: 'Document Vault',
         store: store,
@@ -68,11 +68,11 @@ Ext.onReady(function(){
         columns:[
 		{xtype: 'rownumberer',
 			text:'No.',
-			width:'10%'},
+			width:'5%'},
 		{
             text: "Document ",
             dataIndex: 'documentName',
-            width: '50%',
+            width: '40%',
             align: 'left',
             sortable: false,
 			renderer: renderDoc
@@ -80,22 +80,28 @@ Ext.onReady(function(){
         {
             text: "Date ",
             dataIndex: 'documentDate',
-            width: '20%',
+            width: '30%',
             align: 'left',
             sortable: false,
             renderer:renderDate
         },{
             xtype:'actioncolumn',
-            width:'20%',
-			text:'option',
+            width:'5%',
+			//text:'Mail',
+			align:'center',
             items: [{
                 icon: '../resources/icon/mail.png',  // Use a URL in the icon config
                 tooltip: 'Mail',
-                width:'10%',
                 handler: function(grid, rowIndex, colIndex) {
                     Ext.Msg.alert('Mail','You will recieve mail shortly');
                 }
-            },{
+            }]
+        },
+        {
+            xtype:'actioncolumn',
+            width:'5%',
+			//text:'Delete',
+            items: [{
                 icon: '../resources/icon/remove.png',
                 tooltip: 'Delete',
                 handler: function(grid, rowIndex, colIndex) {
