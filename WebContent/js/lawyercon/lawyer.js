@@ -2,7 +2,7 @@ Ext.onReady(function() {
 	Ext.QuickTips.init();
 	 var uri='<img src="../resources/images/rushi.jpg" />';
 var formpanel=Ext.create('Ext.form.Panel', {
-	        width: 250,
+	        //width: 250,
 	        height: 400,
 	        bodyPadding: 10,
 	       

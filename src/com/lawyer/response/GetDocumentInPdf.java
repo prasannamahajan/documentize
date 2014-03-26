@@ -44,13 +44,15 @@ public class GetDocumentInPdf extends HttpServlet {
 		try{
 			 userId = request.getSession().getAttribute("userId").toString();
 			documentId = request.getParameter("documentId").toString();
-			epochTime = request.getParameter("epochTime").toString();
+			epochTime = request.getParameter("time").toString();
 			link=request.getServletContext().getRealPath("/")+"userdocument\\"+userId+"\\"+documentId+"\\"+epochTime+"\\output.pdf";
 			System.out.println("link : "+link);
 		}
 		catch(NullPointerException e)
 		{
-			logger.info("UserId : {} , documentId: {}",userId,documentId);
+			logger.info("Link in getpdf : {}",link);
+			e.printStackTrace();
+			logger.info("UserId : {} , documentId: {}, documentTime: {}",userId,documentId,epochTime);
 		}
 		
 		response.setContentType("application/pdf");
