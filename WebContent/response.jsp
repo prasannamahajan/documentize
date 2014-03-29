@@ -90,6 +90,13 @@
 			link = "./contact-us.html";
 			linkname = "Cantact Admin";
 			break;
+		case 6:
+				//case 6 : Unautorize Access
+				head = "Security Message";
+				message = "You do not have previlage to access requested page";
+				link = "./login.html";
+				linkname = "Login";
+				break;
 
 		default:
 			head = "";
