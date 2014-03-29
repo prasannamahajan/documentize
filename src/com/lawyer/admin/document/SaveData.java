@@ -44,6 +44,8 @@ public class SaveData<FileItem> extends HttpServlet {
 	private String documentName;
 	private String documentDescription;
     private String documentPath;
+    private	static String jsonId="100";
+
 	private EntityManager em = EntityManagerListener.getEntityManager();
 	private EntityTransaction etx = em.getTransaction();
     /**
@@ -73,16 +75,16 @@ public class SaveData<FileItem> extends HttpServlet {
 		Part part=null;
 		String name=null;
 		String filepath=null;
-		
-		while((part=parser.readNextPart())!=null)
+	    while((part=parser.readNextPart())!=null)
 		{
 			if(part.isFile())
 			{
 				System.out.println("File paramters found");
 				FilePart fpart=(FilePart)part;
 				 name=fpart.getFileName();
-				
-				filepath =  databaseStorage();
+			    String[] parts=name.split(".");
+	//		    String extension=parts[1];
+			    filepath=databaseStorage(name);
 				if(name!=null)
 				{
 					 long filesize=fpart.writeTo(new java.io.File(filepath));	
@@ -139,33 +141,41 @@ public class SaveData<FileItem> extends HttpServlet {
 		
 		return res;
 	}
-	private String databaseStorage()
+	private String databaseStorage(String type)
 	{
+		
+		if(type.contains(".pdf"))
+		{
+		
 		 catagory=documentInfo.get(1);
 		 documentName=documentInfo.get(0);
 		 documentDescription=documentInfo.get(2);
-		
-		
 		 Document doc = new Document(catagory, documentName, documentDescription);
-		
-		 
-		
-	//	logger.info("cat : {} , docname: {},docdesc:{}",catagory,documentName,documentDescription);
+		//	logger.info("cat : {} , docname: {},docdesc:{}",catagory,documentName,documentDescription);
 		 etx.begin();
 		 em.persist(doc);
 		 etx.commit();
-		 etx.begin();
-		 String documentId=doc.getDocument_id().toString();
+		  String documentId=doc.getDocument_id().toString();
 		 String storagepath=getServletContext().getRealPath("/")+"//"+"sampledocument"+"//";
 		 boolean files=new File(storagepath+documentId).mkdir();
-		 
 		 System.out.println("Document id is:"+documentId);
          documentPath=storagepath+documentId+"//"+"sample.pdf";
 		 System.out.println("documentPath:"+documentPath);
-		// doc.setDocument_path(documentPath);
-		// em.merge(doc);
-		// etx.commit();
-		 return documentPath;
+		jsonId=documentId;
+	    
+		 System.out.println("Json id:1"+jsonId); 
+		}
+		 if(type.contains(".json"))
+		{
+			
+			 System.out.println("Json id:2"+jsonId);  
+  
+			documentPath=getServletContext().getRealPath("/")+"//"+"docjson"+"//"+jsonId+".json";
+			
+			
+		}
+		
+		return documentPath;	
 	}
 	
 	

@@ -45,7 +45,7 @@ public class pdf_generation_try5 {
       Font.NORMAL, BaseColor.RED);
   private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
       Font.BOLD);
-  private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 10,
+  private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
       Font.NORMAL);
   float value=0;
 

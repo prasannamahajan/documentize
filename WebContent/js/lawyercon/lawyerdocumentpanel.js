@@ -12,9 +12,10 @@ Ext.onReady(function(){
    
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
-        idProperty: 'documentId',
-        fields: [ 'documentId', 'documentName','documentDate']
-       
+        fields: [
+            'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'}
+        ],
+        idProperty: 'documentId'
     });
 	
 	 var store = Ext.create('Ext.data.Store', {
@@ -44,20 +45,20 @@ Ext.onReady(function(){
 	
 	function renderDoc(value, p, record) {
         return Ext.String.format(
-            '<b><a href="./get_document_in_pdf?documentId={1}&time={2}" target="_blank">{0}</a>',
+            '<b><a href="./get_document_in_pdf?documentId={1}&epochTime={2}" target="_blank">{0}</a>',
             value,
             record.data.documentId,
             record.data.documentDate
         );
     }
     
-   /* function renderDate(value, p, r) {
+    function renderDate(value, p, r) {
         return Ext.String.format('{0}', Ext.Date.dateFormat(value, 'M j, Y, g:i a'));
-    }*/
+    }
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 600,
-        height: 500,
+       height: 500,
         title: 'Document Vault',
         store: store,
 		frame: true,
@@ -82,7 +83,7 @@ Ext.onReady(function(){
             width: '30%',
             align: 'left',
             sortable: false,
-          //  renderer:renderDate
+            renderer:renderDate
         },{
             xtype:'actioncolumn',
             width:'5%',
@@ -113,7 +114,7 @@ Ext.onReady(function(){
             displayInfo: true,
             emptyMsg: "No document created "
         }),
-        renderTo: 'form-ct'
+        renderTo: 'document-ct'
     });
 	
 	 store.loadPage(1);
