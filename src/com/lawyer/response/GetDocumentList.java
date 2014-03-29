@@ -29,6 +29,7 @@ public class GetDocumentList extends HttpServlet {
 	private EntityTransaction etx = em.getTransaction();
 	private int limit;
 	private int start;
+	private int total;
 	private JSONObject reply = new JSONObject();
 
 	protected void doProcess(HttpServletRequest request,
@@ -44,6 +45,10 @@ public class GetDocumentList extends HttpServlet {
 				limit = 10;
 				start = 1;
 			}
+			Query totalquery = em.createNativeQuery("Select Count(*) from UserDocument");
+			etx.begin();
+			total = Integer.parseInt(totalquery.getSingleResult().toString());
+			etx.commit();
 			
 			Query query = em
 					.createNativeQuery("Select userdoc.document_id,doc.documentName,userdoc.date "
@@ -73,10 +78,12 @@ public class GetDocumentList extends HttpServlet {
 				docData.put("documentId", documentId);
 				docData.put("documentName", documentName);
 				docData.put("documentDate", documentDate);
+				docData.put("edate",documentDate);
 				data.put(docData);
 			}
 
 			reply.put("success", true);
+			reply.put("totalCount",total);
 			reply.put("data", data);
 
 		}

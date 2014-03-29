@@ -29,6 +29,7 @@ public class GetUsersList extends HttpServlet {
 	private EntityTransaction etx = em.getTransaction();
 	private int limit;
 	private int start;
+	private int totalCount;
 	private JSONObject reply = new JSONObject();
 
 	protected void doProcess(HttpServletRequest request,
@@ -43,6 +44,10 @@ public class GetUsersList extends HttpServlet {
 				limit = 10;
 				start = 1;
 			}
+			Query totalCountQuery = em.createNativeQuery("Select count(*) from User");
+			etx.begin();
+			totalCount = Integer.parseInt(totalCountQuery.getSingleResult().toString());
+			etx.commit();
 			
 			Query query = em
 					.createNativeQuery("select u.user_id," +
@@ -103,6 +108,7 @@ public class GetUsersList extends HttpServlet {
 			}
 
 			reply.put("success", true);
+			reply.put("totalCount", totalCount);
 			reply.put("data", data);
 
 		}

@@ -13,7 +13,7 @@ Ext.onReady(function(){
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
         idProperty: 'documentId',
-        fields: [ 'documentId', 'documentName','documentDate']
+        fields: [ 'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'},'edate']
        
     });
 	
@@ -47,13 +47,13 @@ Ext.onReady(function(){
             '<b><a href="./get_document_in_pdf?documentId={1}&time={2}" target="_blank">{0}</a>',
             value,
             record.data.documentId,
-            record.data.documentDate
+            record.data.edate
         );
     }
     
-   /* function renderDate(value, p, r) {
+    function renderDate(value, p, r) {
         return Ext.String.format('{0}', Ext.Date.dateFormat(value, 'M j, Y, g:i a'));
-    }*/
+    }
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 600,
@@ -82,7 +82,7 @@ Ext.onReady(function(){
             width: '30%',
             align: 'left',
             sortable: false,
-          //  renderer:renderDate
+           renderer:renderDate
         },{
             xtype:'actioncolumn',
             width:'5%',
