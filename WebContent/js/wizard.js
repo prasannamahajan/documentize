@@ -62,12 +62,12 @@ var formPn = new Ext.form.Panel({
                         	 	success: function(form, action) {
                                 //Ext.Msg.alert('Success',Ext.decode(action.response.responseText).outputPath);
                                 
-                                 var obj = Ext.decode(action.response.responseText);
-                                var epoch = obj.epoch.toString();
-                                var userId = obj.userId.toString();
-                                var location = "./user/get_document_in_pdf?documentId="+documentId+"&epochTime="+epoch;
+                                // var obj = Ext.decode(action.response.responseText);
+                               // var epoch = obj.epoch.toString();
+                               // var userId = obj.userId.toString();
+                                //var location = "./user/get_document_in_pdf?documentId="+documentId+"&epochTime="+epoch;
                              	//window.location=location;
-                             	window.open(location, '_blank');
+                             	///window.open(location, '_blank');
                              	window.location="./user/home.html";
                         
                              },
