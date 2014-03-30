@@ -46,15 +46,24 @@
 	</div>
 	<%!
 	Document document = new Document();
+	int documentId ;
 	%>
 	<%
-	int documentId = Integer.parseInt(request.getParameter("id"));
+	try{
+	documentId = Integer.parseInt(request.getParameter("id"));
+	}
+	catch(NullPointerException n)
+	{
+		documentId = -1;
+	}
+	
+	if(documentId != -1)
+	{
 	EntityManager em = EntityManagerListener.getEntityManager();
 	EntityTransaction etx = em.getTransaction();
 	etx.begin();
 	document = em.find(Document.class,documentId);
 	etx.commit();
-	em.close();
 	%>
 <div class="container" style="">
 	<div class="row-fluid" style="padding:10px" >
@@ -68,6 +77,15 @@
 		</div>
 	</div>
 	</div>
-
+<%}
+else
+{
+%>
+<div class="container" style="">
+	<div class="row-fluid" style="padding:10px" >
+		<p class="text-error">Invalid request</p>
+	</div>
+	</div>
+<%} %>
 </body>
 </html>
