@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 import com.lawyer.entity.User;
 
 
-@WebFilter("/UserAuthorization")
-public class UserAuthorization implements Filter {
-	private Logger logger = LoggerFactory.getLogger(UserAuthorization.class);
-	public UserAuthorization() {
+@WebFilter("/AdminAuthorization")
+public class AdminAuthorization implements Filter {
+	private Logger logger = LoggerFactory.getLogger(AdminAuthorization.class);
+	public AdminAuthorization() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -42,8 +42,7 @@ public class UserAuthorization implements Filter {
 			if (session.getAttribute("user") != null) {
 				User user = (User) session.getAttribute("user");
 				logger.info("User Role : {}",user.getRole());
-				if (user.getRole().equals("user")
-						|| user.getRole().equals("admin")) {
+				if (user.getRole().equals("admin")) {
 					logger.info("forward possible ");
 					chain.doFilter(request, response);
 

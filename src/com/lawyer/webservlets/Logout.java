@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.lawyer.cookie.Cookies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -26,13 +26,14 @@ public class Logout extends HttpServlet {
 		try{
 		String email = request.getSession().getAttribute("email").toString();
 		String role = request.getSession().getAttribute("role").toString();
+		Cookies.removeCookie(response, "email");
 		request.getSession().invalidate();
 		logger.info("Logout successful for email: {} of role:{}",email,role);
 		}
-		catch(Exception e)
+		catch(NullPointerException e)
 		{
 			logger.error("Error during logout");
-			e.printStackTrace();
+			
 		}
 		finally
 		{

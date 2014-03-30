@@ -12,7 +12,7 @@
     <filter-name>LoginControl</filter-name>
     <url-pattern>/login.html</url-pattern>
   </filter-mapping> -->
-  <!-- <filter>
+ <filter>
     <filter-name>UserAuthorization</filter-name>
     <filter-class>com.lawyer.filter.UserAuthorization</filter-class>
   </filter>
@@ -27,5 +27,5 @@
   <filter-mapping>
     <filter-name>AdminAuthorization</filter-name>
     <url-pattern>/admin/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping> 
 </web-app>

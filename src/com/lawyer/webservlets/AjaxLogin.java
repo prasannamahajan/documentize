@@ -30,8 +30,7 @@ public class AjaxLogin extends HttpServlet {
     	String password = request.getParameter("password");
     	String keepMeLogin = request.getParameter("remember");
     	String role="";
-    	boolean remember = "true".equals(keepMeLogin);
-    	//boolean remember = false;
+    	boolean remember = "on".equals(keepMeLogin);
     	UserAccount account = new UserAccount();
     	boolean result = account.authenticate(email, password);
     	if(result == true)
@@ -45,12 +44,12 @@ public class AjaxLogin extends HttpServlet {
     		logger.info("{} logged in",email);
     		if(remember)
     		{
-    				Cookies.addCookie(response,"lawyer_remember",email,4*3600*24);
+    				Cookies.addCookie(response,"email",email,4*3600*24);
     		}
     		else
     		{
     			request.getSession().setMaxInactiveInterval(5*60);
-    				Cookies.removeCookie(response, "lawyer_remember");
+    				Cookies.removeCookie(response, "email");
     		}
     	}
     	response.setContentType("application/json");
