@@ -22,7 +22,7 @@ public class User implements Serializable {
 	@Column
 	private String password;
 	@Column
-	private boolean active;
+	private Integer active;
 	@Column
 	private String first_name;
 	@Column
@@ -49,7 +49,10 @@ public class User implements Serializable {
 		super();
 		this.email = email;
 		this.password = password;
-		this.active = active;
+		if(active==true)
+		this.active = 1;
+		else
+			this.active = 0;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.street_address = street_address;
@@ -116,11 +119,15 @@ public class User implements Serializable {
 	}
 
 	public boolean getActive() {
-		return this.active;
+		if(this.active==1) return true;
+		return false;
 	}
 
 	public void setActive(boolean active) {
-		this.active = active;
+		if(active==true)
+		this.active = 1;
+		else
+			this.active=0;
 	}
 
 	public String getFirst_name() {

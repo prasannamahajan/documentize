@@ -19,6 +19,7 @@ public class Document implements Serializable {
 	
 	
 	private String documentName;
+	@Column(columnDefinition="text")
 	private String documentDescription;
 	private static final long serialVersionUID = 1L;
 	
