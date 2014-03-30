@@ -100,7 +100,7 @@ public class StorageService extends HttpServlet {
     	xg.path=xg.path+"//"+"userdocument";
     	xg.sample_pdf_path=xg.sample_pdf_path+"//"+"sampledocument"+"//"+documentId+"//"+"sample.pdf";
     try {
-			documentgen(userId,documentId);
+			documentgen(userId,documentId,xg.path);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,9 +114,10 @@ public class StorageService extends HttpServlet {
 	}
 	
 
-	public void documentgen(String userId,String documentId) throws ParserConfigurationException, TransformerException, IOException, SAXException {
-		PdfStorage pdfs=new PdfStorage();
-		pdfs.createfolder(userId,documentId);
+	public void documentgen(String userId,String documentId,String path) throws ParserConfigurationException, TransformerException, IOException, SAXException {
+		Document_inform doc_info=new Document_inform();
+		doc_info.document_inform(userId,documentId);
+		
 	}
 
 	protected JSONObject writeResponse(boolean result)throws JSONException {

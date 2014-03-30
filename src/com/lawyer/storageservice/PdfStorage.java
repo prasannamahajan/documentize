@@ -23,19 +23,19 @@ public class PdfStorage {
 	String epoch_time=null;
 	Xmlgeneric xg=new Xmlgeneric();
 	XmlCreator xmlc=new XmlCreator();
-	protected void createfolder(String id,String document_id) throws ParserConfigurationException, TransformerException, IOException, SAXException
+	protected void createfolder(String id,String document_id,String epoch_time) throws ParserConfigurationException, TransformerException, IOException, SAXException
 	{
 		//xg.path=xg.path+"//"+"userdocument";
 		String realpath=xg.path+"\\"+id;
 		pdfstorage(realpath);//for creation of user id folder
 		realpath=xg.path+"\\"+id+"\\"+document_id;
 		pdfstorage(realpath);//for creation of document id folder
-		epoch_time=epochtime_calculator();//Find Epoch time
+//		epoch_time=epochtime_calculator();//Find Epoch time
 		System.out.println("Epoch Date:"+epoch_time);
 	    boolean files = new File(realpath+"\\"+epoch_time+"\\"+"image_folder").mkdirs();
 		realpath=realpath+"\\"+epoch_time;
-		xg.documentEpoch=epoch_time;
-		xg.userId=id;
+		//xg.documentEpoch=epoch_time;
+		//xg.userId=id;
 		xmlc.createxml(realpath);
 		DocumentCRUD info=new DocumentCRUD();
 		info.createDocument(Integer.parseInt(id),Integer.parseInt(document_id),Long.valueOf(epoch_time).longValue());
@@ -48,12 +48,7 @@ public class PdfStorage {
 	FileOutputStream fos=new FileOutputStream(path);
 	}
 	
-private String epochtime_calculator()
-{
-	long epoch = System.currentTimeMillis()/1000;
-	String epoch_time=String.valueOf(epoch);
-    return epoch_time;
-}
+
 public void pdfstorage(String realpath)
 
 		{
