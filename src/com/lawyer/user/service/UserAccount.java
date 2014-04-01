@@ -128,7 +128,7 @@ public class UserAccount implements Users {
 			logger.error("Exception occurs while Deactivating account");
 			em.getTransaction().rollback();
 			return false;
-		} 
+		}
 		return true;
 	}
 
@@ -158,10 +158,10 @@ public class UserAccount implements Users {
 	public boolean register(String first_name, String last_name, String email,
 			String password, String street_address, String city, String state,
 			int postal_code, long phone_number) {
-
 		User user = findUserByEmail(email);
 		EntityManager em = EntityManagerListener.getEntityManager();
-		if (user == null) {
+
+		if (user == null || !user.getActive()) {
 			try {
 				long registered_on = System.currentTimeMillis() / 1000L;
 				boolean active = false;
@@ -169,23 +169,11 @@ public class UserAccount implements Users {
 				User newuser = new User(email, password, active, first_name,
 						last_name, street_address, city, state, postal_code,
 						phone_number, registered_on, role);
-
+				if(user != null)
+					newuser.setUser_id(user.getUser_id());
 				em.getTransaction().begin();
-				em.persist(newuser);
+				em.merge(newuser);
 				em.getTransaction().commit();
-				/*
-				 * try { String subject = "Lawyer Account Activation"; String
-				 * body =
-				 * "<p>Dear User , Please Click on link below to Activate Your Account</p>"
-				 * + "</br>" +"/activate?email=" + email; String from =
-				 * "webapp2011993@gmail.com"; Mail mail = new Mail();
-				 * mail.sendemail(email, from, subject, body);
-				 * 
-				 * } catch (Exception e) {
-				 * System.out.println("mail sending failed"); logger.info(
-				 * "Mail Sending failed while registering , Email = {}", email);
-				 * }
-				 */
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -247,11 +235,11 @@ public class UserAccount implements Users {
 						email);
 				e.printStackTrace();
 				em.getTransaction().rollback();
-				
+
 				return false;
 			}
 		} else {
-		
+
 			return false;
 		}
 	}
@@ -303,10 +291,10 @@ public class UserAccount implements Users {
 		} catch (Exception e) {
 			// System.out.println("Exception occurs while resetting password");
 			logger.info("Reset Password Failed for email = {}", email);
-			
+
 			return false;
 		}
-		
+
 		logger.info("Password for email : {} successfully updated", email);
 		return true;
 	}
