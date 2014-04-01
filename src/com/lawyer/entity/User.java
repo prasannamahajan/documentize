@@ -11,7 +11,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user")
-@NamedQuery(name="User.findUserByEmail",query="Select u FROM User u where u.email = :email")
+@NamedQueries({
+@NamedQuery(name="User.findUserByEmail",query="Select u FROM User u where u.email = :email"),
+@NamedQuery(name="User.findUsersCount",query="Select count(u)FROM User u"),
+@NamedQuery(name="User.findAllUser",query="select u FROM User u")})
+
 public class User implements Serializable {
 
 	@Id

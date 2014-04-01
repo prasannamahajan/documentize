@@ -5,10 +5,9 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.TypedQuery;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +24,17 @@ public class GetUsersList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = LoggerFactory
 			.getLogger(GetUsersList.class);
-	private EntityManager em = EntityManagerListener.getEntityManager();
-	private EntityTransaction etx = em.getTransaction();
+	
 	private int limit;
 	private int start;
-	private int totalCount;
+	private long totalCount=1;
 	private JSONObject reply = new JSONObject();
 
 	protected void doProcess(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
+			 EntityManager em = EntityManagerListener.getEntityManager();
+			EntityTransaction etx = em.getTransaction();
 			try{
 			limit = Integer.parseInt(request.getParameter("limit"));
 			start = Integer.parseInt(request.getParameter("start"));
@@ -44,52 +44,30 @@ public class GetUsersList extends HttpServlet {
 				limit = 10;
 				start = 1;
 			}
-			Query totalCountQuery = em.createNativeQuery("Select count(*) from User");
+			//Query totalCountQuery = em.createNativeQuery("Select count(*) from User");
+			
 			etx.begin();
-			totalCount = Integer.parseInt(totalCountQuery.getSingleResult().toString());
+			totalCount = em.createNamedQuery("User.findUsersCount", Long.class).getSingleResult().longValue();
 			etx.commit();
 			
-			Query query = em
-					.createNativeQuery("select u.user_id," +
-							"u.first_name," +
-							"u.last_name," +
-							"u.email," +
-							"u.phone_number" +
-							",u.role" +
-							",u.street_address" +
-							",u.city," +
-							"u.state," +
-							"u.postal_code," +
-							"u.active " +
-							"from User u");
-			
+			TypedQuery<User> query = em.createNamedQuery("User.findAllUser", User.class);
 			query.setFirstResult(start);
 			query.setMaxResults(limit);
 			
-			List allUsers;
+			
 			etx.begin();
-			allUsers = query.getResultList();
+			List<User> list = query.getResultList();
 			etx.commit();
 
-			Iterator it = allUsers.iterator();
+			Iterator<User> it = list.iterator();
 
 			JSONArray data = new JSONArray();
 			for (; it.hasNext();) {
-				Object[] UserListObject = (Object[]) it.next();
-				User user = new User();
+				
+				User user = it.next();
 				JSONObject docData = new JSONObject();
 				
-				user.setUser_id((Integer) UserListObject[0]);
-				user.setFirst_name(UserListObject[1].toString());
-				user.setLast_name(UserListObject[2].toString());
-				user.setEmail(UserListObject[3].toString());
-				user.setPhone_number(Long.parseLong(UserListObject[4].toString()));
-				user.setRole(UserListObject[5].toString());
-				user.setStreet_address(UserListObject[6].toString());
-				user.setCity(UserListObject[7].toString());
-				user.setState(UserListObject[8].toString());
-				user.setPostal_code((Integer)UserListObject[9]);
-				user.setActive(Boolean.parseBoolean(UserListObject[10].toString()));
+				
 			
 				docData.put("user_id",user.getUser_id());
 				docData.put("first_name",user.getFirst_name());
@@ -118,8 +96,8 @@ public class GetUsersList extends HttpServlet {
 			out.print("\"success\":\"false\"");
 			
 			logger.info("Something Went wrong ");
-			logger.info("EM {}", em);
-			logger.info("etx {}", etx);
+		//	logger.info("EM {}", em);
+			// logger.info("etx {}", etx);
 			e.printStackTrace();
 			return;
 		}
