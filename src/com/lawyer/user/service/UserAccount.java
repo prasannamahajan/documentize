@@ -54,6 +54,26 @@ public class UserAccount implements Users {
 
 		return user;
 	}
+	
+	public User findUserbyId(int id)
+	{
+		EntityManager em = EntityManagerListener.getEntityManager();
+		User user;
+		user = null;
+		try {
+			EntityTransaction etx = em.getTransaction();
+			etx.begin();
+			user = em.find(User.class, id);
+			etx.commit();
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			user = null;
+		}
+
+		return user;
+	}
 
 	/**
 	 * Checks if User account is activated.

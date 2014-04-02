@@ -64,73 +64,8 @@ var navigate = function (panel, direction) {
             	Ext.getCmp('finish').setDisabled(true);
         }; 
 
- var disp = new Ext.form.Panel({
-           bodyStyle: 'padding: 10px',
-            layout:'card',
-            title: "JSON viewer",
-           // autoHeight: true,
-           // frame:true,
-            width:450,
-            autoWidth: true,
-            labelAlign: 'right',
-            items: [
-			{
-            xtype:'textareafield',
-            name: 'file',
-            id:'file',
-            allowBlank:false
-        }]
-});
-var formPn = new Ext.form.Panel({
-            bodyStyle: 'padding: 10px',
-            layout: 'card',
-            title: documentName,
-            autoHeight: true,
-           // url : 'StorageService',
-           // frame:true,
-            width:450,
-            autoWidth: true,
-            labelAlign: 'right',
-            bbar: [{
-                id: 'move-prev',
-                text: 'Back',
-                handler: function (btn) {
-                    navigate(btn.up("panel"), "prev");
-                },
-                disabled: true
-            }, '->', // greedy spacer so that the buttons are aligned to each side
-            {
-                id: 'finish',
-                text: 'Finish',
-                handler: function () {
-                	 var form = this.up('form').getForm();
-                	 if (form.isValid()) {
-                         form.submit(
-                         {
-                        	 	success: function(form, action) {
-       
-                             },
-                             failure: function(form, action) {
-                                 Ext.Msg.alert('Failed', action.result.msg);
-                             }
-                         });
-                     }
-                    
-                }
-            ,
-            disabled: true
-            },
-            {
-                id: 'move-next',
-                text: 'Next',
-                handler: function (btn) {
-                    navigate(btn.up("panel"), "next");
-                }
-            }],
-            defaultType: "textfield"
-            });
-            
-            
+
+          
  var jsonPn = new Ext.form.Panel({
             bodyStyle: 'padding: 10px',
             layout:'card',
@@ -179,19 +114,99 @@ var formPn = new Ext.form.Panel({
                              }
                          });
 					}
-			}},
-			 {
-				text : 'Show JSON',
-				margin : '10 0 0 0',
-					handler : function() {
-							displayResponse();
-              			
 			}}]
             });
             
-
+ // displaying form panel 
+ var formPn = new Ext.form.Panel({
+            bodyStyle: 'padding: 10px',
+            layout: 'card',
+            title: documentName,
+            autoHeight: true,
+           // url : 'StorageService',
+           // frame:true,
+            width:450,
+            autoWidth: true,
+            labelAlign: 'right',
+            bbar: [{
+                id: 'move-prev',
+                text: 'Back',
+                handler: function (btn) {
+                    navigate(btn.up("panel"), "prev");
+                },
+                disabled: true
+            }, '->', // greedy spacer so that the buttons are aligned to each side
+            {
+                id: 'finish',
+                text: 'Finish',
+                handler: function () {
+                	 var form = this.up('form').getForm();
+                	 if (form.isValid()) {
+                         form.submit(
+                         {
+                        	 	success: function(form, action) {
+       
+                             },
+                             failure: function(form, action) {
+                                 Ext.Msg.alert('Failed', action.result.msg);
+                             }
+                         });
+                     }
+                    
+                }
+            ,
+            disabled: true
+            },
+            {
+                id: 'move-next',
+                text: 'Next',
+                handler: function (btn) {
+                    navigate(btn.up("panel"), "next");
+                }
+            }],
+            defaultType: "textfield"
+            });
             
- 
+           
+
+//Panel for showing json view            
+  var disp = new Ext.form.Panel({
+           bodyStyle: 'padding: 10px',
+            layout:'card',
+            title: "JSON viewer",
+           // autoHeight: true,
+           // frame:true,
+            width:450,
+            autoWidth: true,
+            labelAlign: 'right',
+            items: [
+			{
+            xtype:'textareafield',
+            name: 'file',
+            id:'file',
+            allowBlank:false
+        }],
+        bbar:[
+        {
+				text : 'Update',
+				margin : '10 0 0 0',
+				handler : function() {
+					formPn.removeAll();
+										var obj;
+							       		obj = Ext.decode(Ext.getCmp('file').getValue());
+							    
+									       var data = obj.data;
+									       var length = obj.data.length;
+									       active="card-";
+									       active = active + (length-1);
+									       for(var iter=0;iter<length;iter++)
+									    	   {
+									    	   var datef =Ext.ComponentManager.create(data[iter]);
+									    	  formPn.add(datef);
+									    	   };		
+			}
+			}]
+});
  
  
 Ext.onReady(function() {

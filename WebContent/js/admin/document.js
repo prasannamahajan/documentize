@@ -1,14 +1,10 @@
 var categoryStore = Ext.create('Ext.data.Store', {
     fields: ['cat'],
     data : [
-        {"cat":"Bankruptcy"},
-		{"cat":"Real Estate"},
-		{"cat":"Immigration"},
-		{"cat":"Intellectual Property"},
-		{"cat":"Family Law"},
-		{"cat":"Criminal Law"},
-		{"cat":"Other"}
-        
+        {"cat":"Personal"},
+		{"cat":"Business"},
+		{"cat":"Property"},
+		{"cat":"Other"}   
     ]
 });
 

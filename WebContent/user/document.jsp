@@ -27,7 +27,7 @@
                 <a class="" href="./home.html"><i class="icon-home"></i> Home</a>
               </li>
               <li class="active">
-                <a href="./documents.html"><i class="icon-file"></i> Document</a>
+                <a href="./document.jsp"><i class="icon-file"></i> Document</a>
               </li>
                 <li class="">
                 <a href="./myprofile.html"><i class="icon-user"></i> My Profile</a>
@@ -87,7 +87,6 @@
 	<div class="row-fluid" style="padding:10px" >
 		<div class="span3 well">
 		<h4>Personal</h4>
-          <p><a href="#">Family & Personal</a></p>
 		  <%	for (; it.hasNext();) {
 				Object[] obj = (Object[]) it.next();
 				documentId = (Integer)obj[0];
@@ -133,6 +132,7 @@
 			<%}%>
 </div>
 	</div>
+	<p><a href="./alldocument.jsp">View all documents</a></p>
 	</div>
 </body>
 </html>

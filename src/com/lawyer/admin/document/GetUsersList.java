@@ -45,7 +45,6 @@ public class GetUsersList extends HttpServlet {
 				start = 1;
 			}
 			//Query totalCountQuery = em.createNativeQuery("Select count(*) from User");
-			
 			etx.begin();
 			totalCount = em.createNamedQuery("User.findUsersCount", Long.class).getSingleResult().longValue();
 			etx.commit();

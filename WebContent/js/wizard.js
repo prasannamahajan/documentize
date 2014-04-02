@@ -16,7 +16,7 @@ return null;
 
 var documentName = getParameter("documentName");
 var documentId = getParameter("documentId"); 
-var jsonUrl = "docjson//"+documentId+".json";
+var jsonUrl = "../docjson/"+documentId+".json";
 document.title = documentName+" Form";
 
 var navigate = function (panel, direction) {
@@ -35,7 +35,7 @@ var formPn = new Ext.form.Panel({
             layout: 'card',
             title: documentName,
             autoHeight: true,
-            url : 'StorageService',
+            url : '../user/StorageService',
             frame:true,
             width:500,
             autoWidth: true,
@@ -68,7 +68,7 @@ var formPn = new Ext.form.Panel({
                                 //var location = "./user/get_document_in_pdf?documentId="+documentId+"&epochTime="+epoch;
                              	//window.location=location;
                              	///window.open(location, '_blank');
-                             	window.location="./user/home.html";
+                             	window.location="../user/home.html";
                         
                              },
                              failure: function(form, action) {

@@ -31,7 +31,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-@WebServlet("/StorageService")
+@WebServlet("/user/StorageService")
 public class StorageService extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

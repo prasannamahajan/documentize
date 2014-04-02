@@ -7,6 +7,23 @@ Ext.require([
     'Ext.tip.QuickTipManager'
 ]);
 
+var sendMail = function(documentId,documentDate)
+{
+	Ext.Ajax.request({
+	    url: 'senddocumentbymail',
+	    params: {
+	        documentId: documentId,
+	        documentDate:documentDate
+	    },
+	    success: function(response){
+	        var text = response.responseText;
+	        return true;
+	    }
+	});
+	return false;
+};
+
+
 Ext.onReady(function(){
    Ext.tip.QuickTipManager.init();
    
@@ -92,7 +109,12 @@ Ext.onReady(function(){
                 icon: '../resources/icon/mail.png',  // Use a URL in the icon config
                 tooltip: 'Mail',
                 handler: function(grid, rowIndex, colIndex) {
-                    Ext.Msg.alert('Mail','You will recieve mail shortly');
+                	var rec = grid.getStore().getAt(rowIndex);
+                	var result = sendMail(rec.get('documentId'),rec.get('edate'));
+                	if(result==true)
+                		Ext.Msg.alert('Mail','You will recieve mail shortly');
+                	else
+                		Ext.Msg.alert('Failed','Sorry for incovenience');
                 }
             }]
         },

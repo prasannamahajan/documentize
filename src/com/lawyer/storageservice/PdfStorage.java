@@ -5,10 +5,9 @@ import com.lawyer.document.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
+import com.lawyer.user.service.UserAccount;
+import com.lawyer.user.service.Mail;
+import com.lawyer.entity.User;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -39,6 +38,13 @@ public class PdfStorage {
 		xmlc.createxml(realpath);
 		DocumentCRUD info=new DocumentCRUD();
 		info.createDocument(Integer.parseInt(id),Integer.parseInt(document_id),Long.valueOf(epoch_time).longValue());
+		
+		UserAccount account = new UserAccount();
+		User user = account.findUserbyId(Integer.parseInt(id));
+		String email = user.getEmail();
+		String filesource = realpath+"\\output.pdf";
+		Mail mail = new Mail();
+		mail.sendemail(email,"yourlawyerservice@gmail.com","Document Created","Please find attach",filesource);
 		
 //		createoutputpdf(realpath);
 	}
