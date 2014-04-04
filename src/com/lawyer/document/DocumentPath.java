@@ -11,6 +11,12 @@ public class DocumentPath {
 		this.fixedPath = fixedPath;
 	}
 	
+	/**
+	 * Default to C:\\
+	 */
+	public DocumentPath()
+	{}
+	
 	public String getDocumentFolderPath(int userId,int documentId,int documentDate)
 	{
 		String path="";
