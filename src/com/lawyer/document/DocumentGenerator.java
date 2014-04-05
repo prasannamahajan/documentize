@@ -10,12 +10,14 @@ import java.io.StringReader;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.lawyer.document.DocumentPath;
 public class DocumentGenerator {
-	private static String readFileAsString(String filePath) throws IOException {
+	private  String readFileAsString(String filePath) throws IOException {
         StringBuffer fileData = new StringBuffer();
         BufferedReader reader = new BufferedReader(
                 new FileReader(filePath));
@@ -29,7 +31,7 @@ public class DocumentGenerator {
         return (fileData.toString().replace("\n", " "));
         //return fileData.toString();
     }
-	private static String insert(String input,TreeMap<String,String> treemap)
+	private  String insert(String input,TreeMap<String,String> treemap)
 	{
 		Iterator<String> it = treemap.keySet().iterator();
 		while(it.hasNext())
@@ -40,29 +42,53 @@ public class DocumentGenerator {
 		}
 		return input;
 	}
-	private static boolean generateDocument(int userId,int documentId,int date,TreeMap<String,String> treemap)
+	
+	
+	/**
+	 * Generate document : It generates document , store it in folder and make database entry
+	 *
+	 * @param userId the user id
+	 * @param documentId the document id
+	 * @param date the date (epoch time)
+	 * @param treemap the treemap<String,String> which contains placeholder and answers
+	 * @param newDocument  newDocument true if document is new , false if generating document for update purpose
+	 * @param request the request , needed to find getrealpath
+	 * @return true, if successful
+	 */
+	public boolean generateDocument(int userId,int documentId,long date,TreeMap<String,String> treemap,boolean newDocument,HttpServletRequest request)
 	{
-			DocumentPath path = new DocumentPath();
-			path.createUserDocumentFolder(userId, documentId, date);
+			DocumentPath path = new DocumentPath(request.getServletContext().getRealPath("/"));
+			
+			// Create folder for document storage
+			if(newDocument)
+			if(!path.createUserDocumentFolder(userId, documentId, date))
+				return false;
 			
 			String inputFilePath=path.getSampleDocumentPath(documentId);
 			String outputFilePath=path.getDocumentPath(userId, documentId, date);
 		try {
-		    String k = insert(readFileAsString(inputFilePath),treemap);
+		    String content = insert(readFileAsString(inputFilePath),treemap);
 		    OutputStream file = new FileOutputStream(new File(outputFilePath));
 		    Document document = new Document();
 		    PdfWriter.getInstance(document, file);
 		    document.open();
 		    @SuppressWarnings("deprecation")
 			HTMLWorker htmlWorker = new HTMLWorker(document);
-		    htmlWorker.parse(new StringReader(k));
+		    htmlWorker.parse(new StringReader(content));
 		    document.close();
 		    file.close();
-		    return true;
+		    
+		    if(newDocument)
+		    {
+		    	DocumentCRUD documentDAO = new DocumentCRUD();
+		    if(documentDAO.insertDocument(userId, documentId, date))
+		    		return true;
+		    }
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		    return false;
 		}
+		return false;
 	}
 }

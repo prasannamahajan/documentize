@@ -8,7 +8,7 @@ public class DocumentPath {
 	 * @param fixedPath must be request.getServletContext().getRealPath('/')
 	 */
 	public DocumentPath(String fixedPath) {
-		this.fixedPath = fixedPath;
+		this.fixedPath = fixedPath+"\\";
 	}
 	
 	/**
@@ -17,14 +17,14 @@ public class DocumentPath {
 	public DocumentPath()
 	{}
 	
-	public String getDocumentFolderPath(int userId,int documentId,int documentDate)
+	public String getDocumentFolderPath(int userId,int documentId,long documentDate)
 	{
 		String path="";
 		path = fixedPath+"userdocument\\"+userId+"\\"+documentId+"\\"+documentDate;
 		return path;
 	}
 	
-	public String getDocumentPath(int userId,int documentId,int documentDate)
+	public String getDocumentPath(int userId,int documentId,long documentDate)
 	{
 		
 		return getDocumentFolderPath(userId, documentId, documentDate)+"\\output.pdf";
@@ -34,7 +34,7 @@ public class DocumentPath {
 	public String getSampleDocumentPath(int documentId)
 	{
 		String path="";
-		path = fixedPath+"sampledocument\\"+documentId+"\\sample.pdf";
+		path = fixedPath+"sampledocument\\"+documentId+"\\sample.htm";
 		return path;
 	}
 	
@@ -45,7 +45,7 @@ public class DocumentPath {
 		return path;
 	}
 	
-	public boolean createUserDocumentFolder(int userId,int documentId,int documentDate)
+	public boolean createUserDocumentFolder(int userId,int documentId,long documentDate)
 	{
 		String path="";
 		path = fixedPath+"userdocument\\"+userId+"\\"+documentId+"\\"+documentDate;
@@ -70,7 +70,7 @@ public class DocumentPath {
 	      return dir.delete();
 	  }
 	 
-	public boolean deleteUserDocumentFolder(int userId,int documentId,int documentDate)
+	public boolean deleteUserDocumentFolder(int userId,int documentId,long documentDate)
 	{
 		String path="";
 		path = fixedPath+"userdocument\\"+userId+"\\"+documentId+"\\"+documentDate;

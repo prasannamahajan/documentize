@@ -35,7 +35,7 @@ var formPn = new Ext.form.Panel({
             layout: 'card',
             title: documentName,
             autoHeight: true,
-            url : '../user/StorageService',
+            url : '../user/createdocument',
             frame:true,
             width:500,
             autoWidth: true,

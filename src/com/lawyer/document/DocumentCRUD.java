@@ -15,7 +15,7 @@ public class DocumentCRUD {
 
 	private static Logger logger = LoggerFactory.getLogger(DocumentCRUD.class);
 	
-	public boolean createDocument(int userId,int documentId,long time)
+	public boolean insertDocument(int userId,int documentId,long time)
 	{
 		UserDocument document = new UserDocument(userId,documentId,time);
 		EntityManager em = EntityManagerListener.getEntityManager();
