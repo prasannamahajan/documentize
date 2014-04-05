@@ -205,6 +205,56 @@ public class UserAccount implements Users {
 			return false;
 	}
 
+	
+	/**
+	 * Register Used to register new user
+	 * 
+	 * @param firstName
+	 *            the first name of user
+	 * @param lastName
+	 *            the last name of user
+	 * @param email
+	 *            the email of user
+	 * @param password
+	 *            the password of user
+	 * @param street_address
+	 *            the street address of user
+	 * @param city
+	 *            the city of user
+	 * @param state
+	 *            the state of user
+	 * @param postal_code
+	 *            the postal code of user
+	 * @param phone_number
+	 *            the phone number of user
+	 * @return true, if successful registration
+	 */
+	public boolean register(String firstName, String lastName, String email,
+			String password) {
+		User user = findUserByEmail(email);
+		EntityManager em = EntityManagerListener.getEntityManager();
+
+		if (user == null || !user.getActive()) {
+			try {
+				long registeredOn = System.currentTimeMillis() / 1000L;
+				boolean active = false;
+				String role = "user";
+				User newuser = new User(firstName, lastName, email, password, role, registeredOn, active);
+				if(user != null)
+					newuser.setUser_id(user.getUser_id());
+				em.getTransaction().begin();
+				em.merge(newuser);
+				em.getTransaction().commit();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				em.getTransaction().rollback();
+				logger.error("Error occured while registering email: {}", email);
+				return false;
+			}
+		} else
+			return false;
+	}
 	/**
 	 * Update user account
 	 * 

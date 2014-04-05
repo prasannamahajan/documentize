@@ -65,6 +65,16 @@ public class User implements Serializable {
 		this.role = role;
 	}
 	
+	public User(String firstName,String lastName,String email,String password,String role,long registeredOn ,boolean active)
+	{
+		this.email = email;
+		this.password = password;
+		this.active = active;
+		this.first_name = firstName;
+		this.last_name = lastName;
+		this.registered_on = registeredOn;
+		this.role = role;
+	}
 	public User(int user_id,String email, 
 			String first_name, String last_name, String street_address,
 			String city, String state, int postal_code, long phone_number
