@@ -144,7 +144,7 @@ public class SaveData<FileItem> extends HttpServlet {
 	private String databaseStorage(String type)
 	{
 		
-		if(type.contains(".pdf"))
+		if(type.contains(".htm"))
 		{
 		
 		 catagory=documentInfo.get(1);
@@ -159,7 +159,7 @@ public class SaveData<FileItem> extends HttpServlet {
 		 String storagepath=getServletContext().getRealPath("/")+"//"+"sampledocument"+"//";
 		 boolean files=new File(storagepath+documentId).mkdir();
 		 System.out.println("Document id is:"+documentId);
-         documentPath=storagepath+documentId+"//"+"sample.pdf";
+         documentPath=storagepath+documentId+"//"+"sample.htm";
 		 System.out.println("documentPath:"+documentPath);
 		jsonId=documentId;
 	    
