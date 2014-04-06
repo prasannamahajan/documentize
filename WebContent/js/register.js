@@ -248,17 +248,17 @@ Ext.onReady(function() {
 		emptyText: 'Enter your email'
 		},	
 		passwords,
-		/*{
+		{
         fieldLabel: 'Street Address',
         name: 'street_address',
         allowBlank: false,
 		blankText: 'Enter your Street address',
 		emptyText: 'Enter your Street Address'
-		}*/
+		}
 		//Ladling container of state and city
-		//,stateandcity,
+		,stateandcity,
 		//Loading container of postal code and phone number
-		//,postalCode_phone,
+		postalCode_phone,
 		//Loading container of buttons
 		buttons
 		]

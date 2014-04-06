@@ -12,6 +12,9 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -43,29 +46,58 @@ public class DocumentGenerator {
 		return input;
 	}
 	
+	public  void writeAnswers(int userId,int documentId,long documentDate,JSONObject data,HttpServletRequest request) throws JSONException
+	{
+		JSONObject answers = new JSONObject();
+		answers.put("success", true);
+		answers.put("data", data);
+		
+		DocumentPath path = new DocumentPath(request.getServletContext().getRealPath("/"));
+		String userfolder = path.getDocumentFolderPath(userId, documentId, documentDate);
+		String filename = userfolder + "//answer.json";
+		
+		File file;
+		FileOutputStream fileOutputStream = null;
+		try{
+			file = new File(filename);
+			fileOutputStream = new FileOutputStream(file);
+			
+			if(!file.exists())
+				file.createNewFile();
+			
+			fileOutputStream.write(answers.toString().getBytes());
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/**
 	 * Generate document : It generates document , store it in folder and make database entry
 	 *
 	 * @param userId the user id
 	 * @param documentId the document id
-	 * @param date the date (epoch time)
+	 * @param documentDate the date (epoch time)
 	 * @param treemap the treemap<String,String> which contains placeholder and answers
 	 * @param newDocument  newDocument true if document is new , false if generating document for update purpose
 	 * @param request the request , needed to find getrealpath
 	 * @return true, if successful
 	 */
-	public boolean generateDocument(int userId,int documentId,long date,TreeMap<String,String> treemap,boolean newDocument,HttpServletRequest request)
+	public boolean generateDocument(int userId,int documentId,long documentDate,TreeMap<String,String> treemap,boolean newDocument,HttpServletRequest request)
 	{
 			DocumentPath path = new DocumentPath(request.getServletContext().getRealPath("/"));
 			
 			// Create folder for document storage
 			if(newDocument)
-			if(!path.createUserDocumentFolder(userId, documentId, date))
+			if(!path.createUserDocumentFolder(userId, documentId, documentDate))
 				return false;
 			
 			String inputFilePath=path.getSampleDocumentPath(documentId);
-			String outputFilePath=path.getDocumentPath(userId, documentId, date);
+			String outputFilePath=path.getDocumentPath(userId, documentId, documentDate);
 		try {
 		    String content = insert(readFileAsString(inputFilePath),treemap);
 		    OutputStream file = new FileOutputStream(new File(outputFilePath));
@@ -81,7 +113,7 @@ public class DocumentGenerator {
 		    if(newDocument)
 		    {
 		    	DocumentCRUD documentDAO = new DocumentCRUD();
-		    if(documentDAO.insertDocument(userId, documentId, date))
+		    if(documentDAO.insertDocument(userId, documentId, documentDate))
 		    		return true;
 		    }
 		} catch (Exception e) {
@@ -89,6 +121,6 @@ public class DocumentGenerator {
 			e.printStackTrace();
 		    return false;
 		}
-		return false;
+		return true;
 	}
 }

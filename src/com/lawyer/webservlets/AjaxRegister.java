@@ -26,7 +26,7 @@ public class AjaxRegister extends HttpServlet {
 		String lastName = request.getParameter("last_name");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		/*String street_address = request.getParameter("street_address");
+		String street_address = request.getParameter("street_address");
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
 		int postal_code = Integer.parseInt(request.getParameter("postal_code"));
@@ -34,12 +34,12 @@ public class AjaxRegister extends HttpServlet {
 				.parseLong(request.getParameter("phone_number"));
 
 		UserAccount account = new UserAccount();
-		boolean result = account.register(first_name, last_name, email,
+		boolean result = account.register(firstName, lastName, email,
 				password, street_address, city, state, postal_code,
 				phone_number);
-				*/
-		UserAccount account = new UserAccount();
-		boolean result = account.register(firstName, lastName, email, password);
+				
+	/*	UserAccount account = new UserAccount();
+		boolean result = account.register(firstName, lastName, email, password);*/
 		
 		if (result) {
 			Mail mail = new Mail();

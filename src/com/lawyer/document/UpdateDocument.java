@@ -15,13 +15,13 @@ import org.json.JSONObject;
 
 /**
  * @author Prasanna
- * This servlet creates new document
+ * This servlet updates existing document
  */
-@WebServlet(name = "createdocument", urlPatterns = { "/user/createdocument" })
-public class CreateDocument extends HttpServlet {
+@WebServlet(name = "updatedocument", urlPatterns = { "/user/updatedocument" })
+public class UpdateDocument extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public CreateDocument() {
+	public UpdateDocument() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +39,8 @@ public class CreateDocument extends HttpServlet {
 			int documentId = Integer.parseInt(request
 					.getParameter("documentId").toString());
 
-			long documentDate = System.currentTimeMillis() / 1000L;
+			long documentDate = Long.parseLong(request.getParameter("documentDate").toString());
+			
 			while (paramlist.hasMoreElements()) {
 				String key = paramlist.nextElement();
 				String value = request.getParameter(key);
@@ -51,17 +52,16 @@ public class CreateDocument extends HttpServlet {
 			DocumentGenerator documentGenerator = new DocumentGenerator();
 			
 			
-			boolean newDocument=true;
+			boolean newDocument=false;
 			if (documentGenerator.generateDocument(userId, documentId, documentDate,
 					treemap,newDocument,request))
-				{
+			{
 				reply.put("success", true);
 				documentGenerator.writeAnswers(userId, documentId, documentDate, data, request);
-				}
+			}
 			else
 				reply.put("success", false);
 
-			
 			response.getWriter().write(reply.toString());
 			response.getWriter().flush();
 		} catch (Exception e) {

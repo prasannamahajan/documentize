@@ -48,6 +48,7 @@ public class DocumentCRUD {
 		}
 		catch(Exception e)
 		{
+			em.getTransaction().rollback();
 			logger.info("Exception while inserting document");
 			logger.info("EntityManager : {}",em);
 			return false;

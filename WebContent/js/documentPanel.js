@@ -23,6 +23,22 @@ var sendMail = function(documentId,documentDate)
 	return false;
 };
 
+var deleteDocument = function(documentId,documentDate)
+{
+	Ext.Ajax.request({
+	    url: 'deletedocument',
+	    params: {
+	        documentId: documentId,
+	        documentDate:documentDate
+	    },
+	    success: function(response){
+	        var text = response.responseText;
+	        return true;
+	    }
+	});
+	return false;
+};
+
 
 Ext.onReady(function(){
    Ext.tip.QuickTipManager.init();
@@ -121,12 +137,36 @@ Ext.onReady(function(){
         {
             xtype:'actioncolumn',
             width:'5%',
-			//text:'Delete',
+            items: [{
+                icon: '../resources/icon/edit.png',
+                tooltip: 'Edit',
+                handler: function(grid, rowIndex, colIndex) {
+                	var rec = grid.getStore().getAt(rowIndex);
+                	var recid = rec.get('documentId');
+                	var recdate= rec.get('edate');
+                	var recname= rec.get('documentName');
+                	var location = "../user/updatedocument.html?documentId="+recid+"&documentDate="+recdate+"&documentName="+recname;
+					window.open(location, '_blank');
+                }
+            }]
+        },
+        {
+            xtype:'actioncolumn',
+            width:'5%',
+			
             items: [{
                 icon: '../resources/icon/remove.png',
                 tooltip: 'Delete',
                 handler: function(grid, rowIndex, colIndex) {
-                	Ext.Msg.alert('Delete file','File deleted');
+                		var rec = grid.getStore().getAt(rowIndex);
+                	var result = deleteDocument(rec.get('documentId'),rec.get('edate'));
+                	if(result==true)
+                		{
+                		 grid.store.removeAt(rowIndex);
+                		Ext.Msg.alert('Document','Document is deleted');
+                		}
+                	else
+                		Ext.Msg.alert('Failed','Sorry for incovenience');
                 }
             }]
         }],
