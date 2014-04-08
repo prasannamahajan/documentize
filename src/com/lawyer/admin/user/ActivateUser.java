@@ -1,4 +1,4 @@
-package com.lawyer.admin.document;
+package com.lawyer.admin.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +20,8 @@ import com.lawyer.user.service.UserAccount;
 import org.json.*;
 
 
-@WebServlet("/admin/deactivateuser")
-public class DeactivateUser extends HttpServlet {
+@WebServlet("/admin/activateuser")
+public class ActivateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = LoggerFactory.getLogger(UserAccount.class);
 
@@ -38,7 +38,7 @@ public class DeactivateUser extends HttpServlet {
 			EntityTransaction etx = em.getTransaction();
 			etx.begin();
 			user = em.find(User.class,Integer.parseInt(userId));
-			user.setActive(false);
+			user.setActive(true);
 			em.persist(user);
 			etx.commit();
 			

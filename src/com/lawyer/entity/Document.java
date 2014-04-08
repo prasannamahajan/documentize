@@ -6,7 +6,10 @@ import java.lang.String;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name="Document.getDocumentsByCatagory",query="Select d from Document d where d.catagory = :catagory")
+@NamedQueries({
+@NamedQuery(name="Document.getDocumentsByCatagory",query="Select d from Document d where d.catagory = :catagory"),
+@NamedQuery(name="Document.getDocumentList",query="Select doc from Document doc"),
+@NamedQuery(name="Document.getDocumentInformation",query="Select doc from Document doc where doc.documentId = :documentId")})
 public class Document implements Serializable {
 
 	   
@@ -31,6 +34,14 @@ public class Document implements Serializable {
 	}
 
 
+	public Document(Integer documentId, String catagory, String documentName,
+			String documentDescription) {
+		super();
+		this.documentId = documentId;
+		this.catagory = catagory;
+		this.documentName = documentName;
+		this.documentDescription = documentDescription;
+	}
 	public Document() {
 		super();
 	}  

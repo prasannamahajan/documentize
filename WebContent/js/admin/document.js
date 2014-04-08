@@ -1,3 +1,5 @@
+// This is uploading new docu
+
 var categoryStore = Ext.create('Ext.data.Store', {
     fields: ['cat'],
     data : [
@@ -26,7 +28,7 @@ Ext.onReady(function() {
 	Ext.create('Ext.form.Panel', {
 		bodyPadding : '5 5 0',
 		labelAlign : 'top',
-		width : 500,
+		width :'100%',
 		title : 'Make Document',
 		frame : true,
 		bodyPadding : 10,
