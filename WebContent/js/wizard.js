@@ -106,6 +106,19 @@ Ext.onReady(function(){
 		    	  formPn.add(datef);
 		    	   }
 		       formPn.render('form-ct');
+		       formPn.getForm().load({
+		   	    url: '../user/getautoanswers',
+		   	    params:{
+		   								documentId:documentId
+		   								},
+		   	    success:function(form,action)
+		   	    {
+		   	    	var responseObj = Ext.JSON.decode(action.response.responseText);
+		   	    },
+		   	    failure: function(form, action) {
+		   	        Ext.Msg.alert("Load failed", action.response.responseText);
+		   	    }
+		   	});
 		      console.dir(obj);
 		   },
 		   failure: function(response, opts) {

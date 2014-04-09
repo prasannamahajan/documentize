@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lawyer.document.DocumentAnswer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +35,7 @@ public class CreateDocument extends HttpServlet {
 		JSONObject data = new JSONObject();
 		Enumeration<String> paramlist = request.getParameterNames();
 		TreeMap<String, String> treemap = new TreeMap<String, String>();
+		TreeMap<String, String> treemapForDB = new TreeMap<String, String>();
 		try {
 			int userId = Integer.parseInt(request.getSession()
 					.getAttribute("userId").toString());
@@ -44,12 +47,13 @@ public class CreateDocument extends HttpServlet {
 				String key = paramlist.nextElement();
 				String value = request.getParameter(key);
 				data.put(key, value);
+				treemapForDB.put(key, value);
 				key = "*" + key + "*";
 				treemap.put(key, value);
 				
 			}
 			DocumentGenerator documentGenerator = new DocumentGenerator();
-			
+			DocumentAnswer documentAnswer = new DocumentAnswer();
 			
 			boolean newDocument=true;
 			if (documentGenerator.generateDocument(userId, documentId, documentDate,
@@ -57,6 +61,7 @@ public class CreateDocument extends HttpServlet {
 				{
 				reply.put("success", true);
 				documentGenerator.writeAnswers(userId, documentId, documentDate, data, request);
+				documentAnswer.saveAnswers(userId, documentId, documentDate, treemapForDB);
 				}
 			else
 				reply.put("success", false);
