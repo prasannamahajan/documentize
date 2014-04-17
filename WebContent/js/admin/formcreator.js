@@ -2,7 +2,6 @@ var documentName = "Name of the document";
 var documentId = "documentid"; 
 var jsonUrl = "1.json";
 var active="card-";
-document.title = "Title of document";
 var jsonResponse="";
 var displayResponse = function(){
  var win = Ext.widget('window', {

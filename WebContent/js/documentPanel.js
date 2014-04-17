@@ -54,7 +54,7 @@ Ext.onReady(function(){
    
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
-        idProperty: 'documentId',
+        idProperty: 'edate',
         fields: [ 'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'},'edate']
        
     });
@@ -79,7 +79,7 @@ Ext.onReady(function(){
             simpleSortMode: true
         },
         sorters: [{
-            property: 'documentId',
+            property: 'edate',
             direction: 'DESC'
         }]
     });
@@ -99,7 +99,7 @@ Ext.onReady(function(){
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 600,
-        height: 500,
+        height: 360,
         title: 'Document Vault',
         store: store,
 		frame: true,
@@ -127,12 +127,13 @@ Ext.onReady(function(){
            renderer:renderDate
         },{
             xtype:'actioncolumn',
-            width:'15%',
+            width:'5%',
 			//text:'Mail',
 			align:'center',
             items: [{
                 icon: '../resources/icon/mail.png',  // Use a URL in the icon config
                 tooltip: 'Mail',
+                margin:'10 10 10 10',
                 handler: function(grid, rowIndex, colIndex) {
                 	var rec = grid.getStore().getAt(rowIndex);
                 	var result = sendMail(rec.get('documentId'),rec.get('edate'));
@@ -143,7 +144,13 @@ Ext.onReady(function(){
                 		//Ext.Msg.alert('Failed','Sorry for incovenience');
                 		}
                 }
-            },{
+            }]
+        },{
+            xtype:'actioncolumn',
+            width:'5%',
+			//text:'Mail',
+			align:'center',
+            items: [{
                 icon: '../resources/icon/edit.png',
                 tooltip: 'Edit',
                 handler: function(grid, rowIndex, colIndex) {
@@ -154,21 +161,22 @@ Ext.onReady(function(){
                 	var location = "../user/updatedocument.html?documentId="+recid+"&documentDate="+recdate+"&documentName="+recname;
 					window.open(location, '_blank');
                 }
-            },{
+            }]
+        },{
+            xtype:'actioncolumn',
+            width:'5%',
+			//text:'Mail',
+			align:'center',
+            items: [{
                 icon: '../resources/icon/remove.png',
                 tooltip: 'Delete',
                 handler: function(grid, rowIndex, colIndex) {
                 		var rec = grid.getStore().getAt(rowIndex);
                 	var result = deleteDocument(rec.get('documentId'),rec.get('edate'));
-                	if(result==true)
-                		{
+         
                 		 grid.store.removeAt(rowIndex);
-                		Ext.Msg.alert('Document','Document is deleted');
-                		}
-                	else
-                		{
-                		//Ext.Msg.alert('Failed','Sorry for incovenience');
-                		}
+                	
+                		store.load();
                 }
             }]
         }],

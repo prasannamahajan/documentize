@@ -27,7 +27,7 @@ var navigate = function (panel, direction) {
             if(layout.activeItem.id==active)
             	Ext.getCmp('finish').setDisabled(false);
             else
-            	Ext.getCmp('finish').setDisabled(true);
+            	Ext.getCmp('finish').setDisabled(false);
         }; 
 
 var formPn = new Ext.form.Panel({
@@ -80,7 +80,7 @@ var formPn = new Ext.form.Panel({
                     
                 }
             ,
-            disabled: true
+            disabled: false
             },
             {
                 id: 'move-next',

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.*;
+
+import com.lawyer.document.DocumentQueries;
 import com.lawyer.filter.EntityManagerListener;
 
 @WebServlet("/user/getdocumentlist")
@@ -45,26 +47,13 @@ public class GetDocumentList extends HttpServlet {
 				limit = 10;
 				start = 1;
 			}
-			Query totalquery = em.createNativeQuery("Select Count(*) from UserDocument");
-			etx.begin();
-			total = Integer.parseInt(totalquery.getSingleResult().toString());
-			etx.commit();
 			
-			Query query = em
-					.createNativeQuery("Select userdoc.document_id,doc.documentName,userdoc.date "
-							+ "from UserDocument userdoc,Document doc"
-							+ " where "
-							+ "userdoc.user_id=:user_id "
-							+ "and "
-							+ "userdoc.document_id = doc.documentId");
-			query.setParameter("user_id", userId);
-			query.setFirstResult(start);
-			query.setMaxResults(limit);
+			DocumentQueries docqueries = new DocumentQueries();
 			
-			List allDocuments;
-			etx.begin();
-			allDocuments = query.getResultList();
-			etx.commit();
+			total = docqueries.getDocumentCount(userId);
+			
+			List allDocuments = docqueries.getDocumentList(userId, start, limit);
+			
 
 			Iterator it = allDocuments.iterator();
 
