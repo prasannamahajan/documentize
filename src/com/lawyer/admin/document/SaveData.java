@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.DocumentException;
+import com.lawyer.document.DocumentPath;
 import com.lawyer.entity.Document;
 import com.lawyer.filter.EntityManagerListener;
 //import com.lawyer.pdfencryption.PdfEncryption;
@@ -156,21 +157,24 @@ public class SaveData<FileItem> extends HttpServlet {
 		 em.persist(doc);
 		 etx.commit();
 		  String documentId=doc.getDocument_id().toString();
-		 String storagepath=getServletContext().getRealPath("/")+"//"+"sampledocument"+"//";
-		 boolean files=new File(storagepath+documentId).mkdir();
-		 System.out.println("Document id is:"+documentId);
-         documentPath=storagepath+documentId+"//"+"sample.htm";
+		  DocumentPath path = new DocumentPath(getServletContext().getRealPath("/"));
+		 String storagepath = path.getSampleDocumentFolderPath(Integer.parseInt(documentId));
+		  //String storagepath=getServletContext().getRealPath("/")+"//"+"sampledocument"+"//";
+		 logger.info("Storage path : {}",storagepath);
+		 boolean files=new File(storagepath).mkdir();
+         documentPath=storagepath+"//"+"sample.htm";
 		 System.out.println("documentPath:"+documentPath);
 		jsonId=documentId;
-	    
-		 System.out.println("Json id:1"+jsonId); 
+	     
 		}
 		 if(type.contains(".json"))
 		{
 			
-			 System.out.println("Json id:2"+jsonId);  
-  
-			documentPath=getServletContext().getRealPath("/")+"//"+"docjson"+"//"+jsonId+".json";
+			
+			 
+			DocumentPath path = new DocumentPath(getServletContext().getRealPath("/"));
+			documentPath = path.getFormJsonFilePath(Integer.parseInt(jsonId));
+			//documentPath=getServletContext().getRealPath("/")+"//"+"docjson"+"//"+jsonId+".json";
 			
 			
 		}

@@ -7,6 +7,7 @@ Ext.require([
     'Ext.tip.QuickTipManager'
 ]);
 
+
 var sendMail = function(documentId,documentDate)
 {
 	Ext.Ajax.request({
@@ -18,9 +19,13 @@ var sendMail = function(documentId,documentDate)
 	    success: function(response){
 	        var text = response.responseText;
 	        return true;
-	    }
+	    },
+		   failure: function(response, opts) {
+			   Ext.Msg.alert('Status', 'Mail Failed.');
+			   return false;
+		   }
 	});
-	return false;
+	//return false;
 };
 
 var deleteDocument = function(documentId,documentDate)
@@ -34,9 +39,13 @@ var deleteDocument = function(documentId,documentDate)
 	    success: function(response){
 	        var text = response.responseText;
 	        return true;
-	    }
+	    },
+		   failure: function(response, opts) {
+			   Ext.Msg.alert('Status', 'Delete failed.');
+			   return false;
+		   }
 	});
-	return false;
+	//return false;
 };
 
 
@@ -118,7 +127,7 @@ Ext.onReady(function(){
            renderer:renderDate
         },{
             xtype:'actioncolumn',
-            width:'5%',
+            width:'15%',
 			//text:'Mail',
 			align:'center',
             items: [{
@@ -130,14 +139,11 @@ Ext.onReady(function(){
                 	if(result==true)
                 		Ext.Msg.alert('Mail','You will recieve mail shortly');
                 	else
-                		Ext.Msg.alert('Failed','Sorry for incovenience');
+                		{
+                		//Ext.Msg.alert('Failed','Sorry for incovenience');
+                		}
                 }
-            }]
-        },
-        {
-            xtype:'actioncolumn',
-            width:'5%',
-            items: [{
+            },{
                 icon: '../resources/icon/edit.png',
                 tooltip: 'Edit',
                 handler: function(grid, rowIndex, colIndex) {
@@ -148,13 +154,7 @@ Ext.onReady(function(){
                 	var location = "../user/updatedocument.html?documentId="+recid+"&documentDate="+recdate+"&documentName="+recname;
 					window.open(location, '_blank');
                 }
-            }]
-        },
-        {
-            xtype:'actioncolumn',
-            width:'5%',
-			
-            items: [{
+            },{
                 icon: '../resources/icon/remove.png',
                 tooltip: 'Delete',
                 handler: function(grid, rowIndex, colIndex) {
@@ -166,7 +166,9 @@ Ext.onReady(function(){
                 		Ext.Msg.alert('Document','Document is deleted');
                 		}
                 	else
-                		Ext.Msg.alert('Failed','Sorry for incovenience');
+                		{
+                		//Ext.Msg.alert('Failed','Sorry for incovenience');
+                		}
                 }
             }]
         }],

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lawyer.admin.document.SampleDocument;
+import com.lawyer.document.DocumentPath;
 import com.lawyer.entity.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,19 +48,22 @@ public class UpdateDocumentFiles extends HttpServlet {
 						String filename=fpart.getFileName();
 						 if(filename!=null)
 						 {
-							 
+							 DocumentPath documentPath = new DocumentPath(getServletContext().getRealPath("/"));	 
 						 if(filename.contains(".htm"))
 						 {
 							 htmlfile = fpart;
 							 String storagepath=getServletContext().getRealPath("/")+"//"+"sampledocument"+"//";
 							 boolean files=new File(storagepath+documentId).mkdir();
-							 String path = getServletContext().getRealPath("/")+"//"+"sampledocument"+"//"+documentId+"//"+"sample.htm";
+							
+							// String path = getServletContext().getRealPath("/")+"//"+"sampledocument"+"//"+documentId+"//"+"sample.htm";
+							 String path = documentPath.getSampleDocumentPath(documentId);
 							 fpart.writeTo(new File(path));
 						 }
 						 if(filename.contains(".json"))
 							 {
 							 jsonfile = fpart;
-							 String path = getServletContext().getRealPath("/")+"//"+"docjson"+"//"+documentId+".json";
+							 //String path = getServletContext().getRealPath("/")+"//"+"docjson"+"//"+documentId+".json";
+							 String path = documentPath.getFormJsonFilePath(documentId);
 							 fpart.writeTo(new File(path));
 							 }
 						 }

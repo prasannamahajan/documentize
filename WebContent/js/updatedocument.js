@@ -17,7 +17,7 @@ return null;
 var documentName = getParameter("documentName");
 var documentId = getParameter("documentId");
 var documentDate = getParameter("documentDate");
-var jsonUrl = "../docjson/"+documentId+".json";
+var jsonUrl = "../user/getjson?documentId="+documentId;
 document.title = documentName+" Form";
 
 var navigate = function (panel, direction) {

@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import com.lawyer.document.DocumentPath;
 import com.lawyer.entity.UserDocument;
 import com.lawyer.entity.UserDocumentPK;
 
@@ -45,7 +47,9 @@ public class GetDocumentInPdf extends HttpServlet {
 			 userId = request.getSession().getAttribute("userId").toString();
 			documentId = request.getParameter("documentId").toString();
 			epochTime = request.getParameter("time").toString();
-			link=request.getServletContext().getRealPath("/")+"userdocument\\"+userId+"\\"+documentId+"\\"+epochTime+"\\output.pdf";
+			//link=request.getServletContext().getRealPath("/")+"userdocument\\"+userId+"\\"+documentId+"\\"+epochTime+"\\output.pdf";
+			DocumentPath path = new DocumentPath(request.getServletContext().getRealPath("/"));
+			link = path.getDocumentPath(Integer.parseInt(userId), Integer.parseInt(documentId),Long.parseLong(epochTime));
 			System.out.println("link : "+link);
 		}
 		catch(NullPointerException e)

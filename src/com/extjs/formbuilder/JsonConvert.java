@@ -11,6 +11,22 @@ public class JsonConvert {
 	private static final Set<String> configForTextField = new HashSet<String>(
 			Arrays.asList(new String[] { "vtype", "fieldLable", "emptyText",
 					"maxLength", "minLength", "vtypeText" }));
+	
+	public static String getType(String input)
+	{
+		input = input.trim();
+		if(input.equals("true") || input.equals("false"))
+				return "boolean";
+		try{
+			Integer.parseInt(input.trim());
+			return "int";
+		}
+		catch(Exception e)
+		{
+			return "string";
+		}
+	}
+	
 
 	private static JSONObject createContainer(int card) throws JSONException {
 		JSONObject obj = new JSONObject();
@@ -22,7 +38,7 @@ public class JsonConvert {
 	private static JSONObject createTextfield(String name, String label)
 			throws JSONException {
 		JSONObject obj = new JSONObject();
-		obj.put("id", name);
+		obj.put("name", name);
 		obj.put("xtype", "textfield");
 		obj.put("fieldLabel", label);
 		return obj;
@@ -31,7 +47,7 @@ public class JsonConvert {
 	private static JSONObject createTextareafield(String name, String label)
 			throws JSONException {
 		JSONObject obj = new JSONObject();
-		obj.put("id", name);
+		obj.put("name", name);
 		obj.put("xtype", "textareafield");
 		obj.put("fieldLabel", label);
 		return obj;
@@ -40,7 +56,7 @@ public class JsonConvert {
 	private static JSONObject createDatefield(String name, String label)
 			throws JSONException {
 		JSONObject obj = new JSONObject();
-		obj.put("id", name);
+		obj.put("name", name);
 		obj.put("xtype", "datefield");
 		obj.put("fieldLabel", label);
 		return obj;
@@ -51,6 +67,17 @@ public class JsonConvert {
 		obj.put("html", html);
 		return obj;
 	}
+	
+	private static JSONObject createNumberField(String name, String label)
+			throws JSONException {
+		JSONObject obj = new JSONObject();
+		obj.put("name", name);
+		obj.put("xtype", "numberfield");
+		obj.put("fieldLabel", label);
+		return obj;
+	}
+	
+	
 
 	private static boolean isValidate(String currentLine) {
 		try {
@@ -64,9 +91,10 @@ public class JsonConvert {
 					.matches("tip")))
 				return false;
 			for (int i = 2; i < config.length; i++) {
+				//---------------------------------------------------------------------
 				String configItem[] = config[i].split(":");
-				if (!configForTextField.contains(configItem[0]))
-					return false;
+				//if (!configForTextField.contains(configItem[0]))
+				//	return false;
 			}
 			return true;
 		} catch (Exception e) {
@@ -118,11 +146,25 @@ public class JsonConvert {
 						if (config[0].trim().equals("date")) {
 							obj = createDatefield(start, config[1]);
 						}
+						if (config[0].trim().equals("number")) {
+							obj = createNumberField(start, config[1]);
+						}
 
 						for (int i = 2; i < config.length; i++) {
 							String configItem[] = config[i].split(":");
-							obj.put(configItem[0].trim(), configItem[1].trim());
-
+							//-----------------------------------------------------
+							if(getType(configItem[1].trim()).equals("boolean"))
+								obj.put(configItem[0].trim(), configItem[1].trim().equals("true"));
+							if(getType(configItem[1].trim()).equals("int"))
+								obj.put(configItem[0].trim(), Integer.parseInt(configItem[1].trim()));
+							if(getType(configItem[1].trim()).equals("string"))
+								obj.put(configItem[0].trim(), configItem[1].trim());
+	
+								
+							//-----------------------------------------------------
+							
+							//obj.put(configItem[0].trim(), configItem[1].trim());
+							// putting properties 
 						}
 						// System.out.println("line : "+line + "obj :"+obj);
 						items.put(obj);

@@ -16,7 +16,7 @@ return null;
 
 var documentName = getParameter("documentName");
 var documentId = getParameter("documentId"); 
-var jsonUrl = "../docjson/"+documentId+".json";
+var jsonUrl = "../user/getjson?documentId="+documentId;
 document.title = documentName+" Form";
 
 var navigate = function (panel, direction) {
@@ -38,6 +38,7 @@ var formPn = new Ext.form.Panel({
             url : '../user/createdocument',
             frame:true,
             width:500,
+            height:400,
             autoWidth: true,
             labelAlign: 'right',
             bbar: [{

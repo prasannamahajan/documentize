@@ -56,4 +56,22 @@ private static Logger logger = LoggerFactory.getLogger(SampleDocument.class);
 		return false;
 	}
 
+	public boolean deleteDocument(int documentId)
+	{
+		Document document = getDocumentInformation(documentId);
+		try{
+			EntityManager em = EntityManagerListener.getEntityManager();
+			EntityTransaction etx = em.getTransaction();
+			etx.begin();
+			em.remove(document);
+			etx.commit();
+			return true;
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return false;
+			}
+	
+	}
 }
