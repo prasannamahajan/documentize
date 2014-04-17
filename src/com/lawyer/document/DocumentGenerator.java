@@ -42,7 +42,7 @@ public class DocumentGenerator {
 			String key=it.next();
 			String value = treemap.get(key);
 			if(value.length()<1)
-				value="________________";
+				value=".............";
 			input = input.replace(key, value);
 		}
 		return input;

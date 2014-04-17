@@ -37,7 +37,7 @@ public class PdfStorage {
 		xg.userId=id;
 		xmlc.createxml(realpath);
 		DocumentCRUD info=new DocumentCRUD();
-		info.createDocument(Integer.parseInt(id),Integer.parseInt(document_id),Long.valueOf(epoch_time).longValue());
+		//info.createDocument(Integer.parseInt(id),Integer.parseInt(document_id),Long.valueOf(epoch_time).longValue());
 		
 		UserAccount account = new UserAccount();
 		User user = account.findUserbyId(Integer.parseInt(id));
