@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import com.lawyer.document.DocumentPath;
 import com.lawyer.user.service.Mail;
 
-@WebServlet(name = "deletedocument", urlPatterns = { "/admin/deletedocument" })
+@WebServlet(name = "admindeletedocument", urlPatterns = { "/admin/deletedocument" })
 public class DeleteDocument extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

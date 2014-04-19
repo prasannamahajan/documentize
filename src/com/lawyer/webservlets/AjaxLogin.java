@@ -48,7 +48,7 @@ public class AjaxLogin extends HttpServlet {
     		}
     		else
     		{
-    			request.getSession().setMaxInactiveInterval(5*60);
+    			request.getSession().setMaxInactiveInterval(5*60*24);
     				Cookies.removeCookie(response, "email");
     		}
     	}

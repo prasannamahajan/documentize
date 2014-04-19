@@ -41,6 +41,10 @@ var formPn = new Ext.form.Panel({
             width:500,
             autoWidth: true,
             labelAlign: 'right',
+            fieldDefaults : {
+    			msgTarget : 'side',
+    			width:400
+    		},
             bbar: [{
                 id: 'move-prev',
                 text: 'Back',
@@ -130,6 +134,6 @@ var obj;
 		});
 		
 Ext.onReady(function(){	
-
+	Ext.QuickTips.init();
 	
 });

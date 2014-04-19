@@ -17,9 +17,6 @@ var deleteDocument = function(documentId,documentDate)
 	    success: function(response){
 	        var text = response.responseText;
 	        return true;
-	    },
-	    failure: function(response){
-	    	return false;
 	    }
 	});
 };
@@ -89,6 +86,12 @@ Ext.onReady(function(){
             align: 'left',
             sortable: false,
 			renderer: renderDoc
+        },{
+            text: "Id",
+            dataIndex: 'documentId',
+            width: '10%',
+            align: 'left',
+            sortable: false,
         },
         {
             text: "Category ",

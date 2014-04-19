@@ -41,6 +41,10 @@ var formPn = new Ext.form.Panel({
             height:400,
             autoWidth: true,
             labelAlign: 'right',
+        	fieldDefaults : {
+    			msgTarget : 'side',
+    			width:400
+    		},
             bbar: [{
                 id: 'move-prev',
                 text: 'Back',
@@ -93,6 +97,7 @@ var formPn = new Ext.form.Panel({
             });     
 var obj;
 Ext.onReady(function(){	
+	Ext.QuickTips.init();
 	Ext.Ajax.request({
 		   url: jsonUrl,
 		   success: function(response, opts) {
