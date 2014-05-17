@@ -11,10 +11,6 @@
 		<class>com.lawyer.entity.UserDocument</class>
 		<class>com.lawyer.entity.Document</class>
 		<class>com.lawyer.entity.Lawyer</class>
-		<class>com.lawyer.entity.PracticeArea</class>
-		<class>com.lawyer.entity.ServiceFees</class>
-		<class>com.lawyer.entity.PracticeAreaId</class>
-		<class>com.lawyer.entity.ServiceFeesId</class>
 		<class>com.lawyer.entity.Answer</class>
 		<class>com.lawyer.entity.DocumentRelation</class>
 		<properties>

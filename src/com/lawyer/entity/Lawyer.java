@@ -7,7 +7,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,146 +20,90 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "lawyer")
+@NamedQueries({
+@NamedQuery(name="Lawyer.findLawyerById",query="Select u FROM Lawyer u where u.lawyerId = :id"),
+@NamedQuery(name="Lawyer.findAllLawyers",query="select u FROM Lawyer u")})
 public class Lawyer implements java.io.Serializable {
 
+	
 	private static final long serialVersionUID = 1L;
-	private int lawyerId;
-	private String email;
-	private String password;
-	private String name;
-	private String address;
-	private Integer state;
-	private String education;
-	private String experience;
-	private byte[] photo;
-	private Set<PracticeArea> practiceAreas = new HashSet<PracticeArea>(0);
-	private Set<ServiceFees> serviceFeeses = new HashSet<ServiceFees>(0);
-
-	public Lawyer() {
-	}
-
-	public Lawyer(int lawyerId) {
-		this.lawyerId = lawyerId;
-	}
-
-	public Lawyer(int lawyerId, String email, String password, String name,
-			String address, Integer state, String education, String experience,
-			byte[] photo, Set<PracticeArea> practiceAreas, 
-			Set<ServiceFees> serviceFeeses) {
-		this.lawyerId = lawyerId;
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.address = address;
-		this.state = state;
-		this.education = education;
-		this.experience = experience;
-		this.photo = photo;
-		this.practiceAreas = practiceAreas;
-		
-		this.serviceFeeses = serviceFeeses;
-	}
-
 	@Id
-	@Column(name = "lawyer_id", unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int lawyerId;
+	@Column
+	private String specialization;
+	
+	@Column
+	private String fullname;
+	@Column(columnDefinition="text")
+	private String aboutself;
+	@Column
+	private String address;
+	@Column
+	private String phonenumber;
+	@Column
+	private String email;
+	
+	public Lawyer()
+	{}
+	
+	public Lawyer(String fullname, String aboutself, String address,
+			String phonenumber, String email,String specialization) {
+		super();
+		this.fullname = fullname;
+		this.aboutself = aboutself;
+		this.address = address;
+		this.phonenumber = phonenumber;
+		this.email = email;
+		this.specialization = specialization;
+	}
+	
 	public int getLawyerId() {
-		return this.lawyerId;
+		return lawyerId;
 	}
 
 	public void setLawyerId(int lawyerId) {
 		this.lawyerId = lawyerId;
 	}
 
-	@Column(name = "email", length = 50)
-	public String getEmail() {
-		return this.email;
+	public String getSpecialization() {
+		return specialization;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
-
-	@Column(name = "password", length = 50)
-	public String getPassword() {
-		return this.password;
+	
+	public String getFullname() {
+		return fullname;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
-
-	@Column(name = "name", length = 50)
-	public String getName() {
-		return this.name;
+	public String getAboutself() {
+		return aboutself;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setAboutself(String aboutself) {
+		this.aboutself = aboutself;
 	}
-
-	@Column(name = "address", length = 65535)
 	public String getAddress() {
-		return this.address;
+		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	@Column(name = "state")
-	public Integer getState() {
-		return this.state;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
-
-	public void setState(Integer state) {
-		this.state = state;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
-
-	@Column(name = "education", length = 65535)
-	public String getEducation() {
-		return this.education;
+	public String getEmail() {
+		return email;
 	}
-
-	public void setEducation(String education) {
-		this.education = education;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	@Column(name = "experience", length = 10)
-	public String getExperience() {
-		return this.experience;
-	}
-
-	public void setExperience(String experience) {
-		this.experience = experience;
-	}
-
-	@Column(name = "photo")
-	public byte[] getPhoto() {
-		return this.photo;
-	}
-
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-	public Set<PracticeArea> getPracticeAreas() {
-		return this.practiceAreas;
-	}
-
-	public void setPracticeAreas(Set<PracticeArea> practiceAreas) {
-		this.practiceAreas = practiceAreas;
-	}
-
-
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-	public Set<ServiceFees> getServiceFeeses() {
-		return this.serviceFeeses;
-	}
-
-	public void setServiceFeeses(Set<ServiceFees> serviceFeeses) {
-		this.serviceFeeses = serviceFeeses;
-	}
+	
 
 }

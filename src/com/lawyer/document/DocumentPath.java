@@ -26,7 +26,7 @@ public class DocumentPath {
 	 */
 	public DocumentPath()
 	{
-		fixedPath="C:\\";
+		fixedPath="C:\\experiments\\";
 	}
 	
 	/**

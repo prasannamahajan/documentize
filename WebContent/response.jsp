@@ -97,6 +97,13 @@
 				link = "";
 				linkname = "Login";
 				break;
+		case 7:
+					// case 2 : Notify successfull registration
+					head = "Successfull";
+					message = "You will feedback about your document shortly";
+					link = "./user/home.html";
+					linkname = "Home";
+					break;
 
 		default:
 			head = "";

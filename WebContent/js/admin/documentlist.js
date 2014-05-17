@@ -110,13 +110,10 @@ Ext.onReady(function(){
                 handler: function(grid, rowIndex, colIndex) {
                 		var rec = grid.getStore().getAt(rowIndex);
                 	var result = deleteDocument(rec.get('documentId'),rec.get('edate'));
-                	if(result==true)
-                		{
+            
                 		 grid.store.removeAt(rowIndex);
                 		Ext.Msg.alert('Document','Document is deleted');
-                		}
-                	else
-                		Ext.Msg.alert('Failed','Sorry for incovenience');
+                	
                 }
             }]
         }],

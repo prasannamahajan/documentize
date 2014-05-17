@@ -48,14 +48,13 @@ var deleteDocument = function(documentId,documentDate)
 	//return false;
 };
 
-
 Ext.onReady(function(){
    Ext.tip.QuickTipManager.init();
    
        Ext.define('documentModel', {
         extend: 'Ext.data.Model',
-        idProperty: 'edate',
-        fields: [ 'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'},'edate']
+		 fields: [ 'documentId', 'documentName',{name: 'documentDate', mapping: 'documentDate', type: 'date', dateFormat: 'timestamp'},'edate'],
+        idProperty: 'documentId'
        
     });
 	
@@ -83,8 +82,8 @@ Ext.onReady(function(){
             direction: 'DESC'
         }]
     });
-	
-	function renderDoc(value, p, record) {
+
+		function renderDoc(value, p, record) {
         return Ext.String.format(
             '<b><a href="./get_document_in_pdf?documentId={1}&time={2}" target="_blank">{0}</a>',
             value,
@@ -99,8 +98,8 @@ Ext.onReady(function(){
 	
 	var grid = Ext.create('Ext.grid.Panel', {
         width: 600,
-        height: 360,
-        title: 'Document Vault',
+       height: 600,
+        title: 'Document Panel',
         store: store,
 		frame: true,
         //disableSelection: true,
@@ -109,99 +108,49 @@ Ext.onReady(function(){
         columns:[
 		{xtype: 'rownumberer',
 			text:'No.',
-			width:'5%'},
+			width:'3%'},
 		{
-            text: "Document ",
+            text: "Document Name",
             dataIndex: 'documentName',
-            width: '40%',
+            width: '15%',
             align: 'left',
-            sortable: false,
-			renderer: renderDoc
+            sortable: false
         },
         {
-            text: "Date ",
+            text: "Date",
             dataIndex: 'documentDate',
-            width: '30%',
             align: 'left',
-            sortable: false,
-           renderer:renderDate
+            width: '18%',
+            sortable: false
         },{
             xtype:'actioncolumn',
-            width:'5%',
-			//text:'Mail',
-			align:'center',
+            width:'20%',
+			text:'option',
             items: [{
-                icon: '../resources/icon/mail.png',  // Use a URL in the icon config
-                tooltip: 'Mail',
-                margin:'10 10 10 10',
+                icon: '../resources/icon/correct.png',  // Use a URL in the icon config
+                tooltip: 'Activate',
                 handler: function(grid, rowIndex, colIndex) {
-                	var rec = grid.getStore().getAt(rowIndex);
-                	var result = sendMail(rec.get('documentId'),rec.get('edate'));
-                	if(result==true)
-                		Ext.Msg.alert('Mail','You will recieve mail shortly');
-                	else
-                		{
-                		//Ext.Msg.alert('Failed','Sorry for incovenience');
-                		}
+                    var rec = grid.getStore().getAt(rowIndex);
+                    activation('activateuser',rec.get('user_id'));
+                    rec.set('active',true);
+                    store.load();
+                  
                 }
-            }]
-        },{
-            xtype:'actioncolumn',
-            width:'5%',
-			//text:'Mail',
-			align:'center',
-            items: [{
-                icon: '../resources/icon/edit.png',
-                tooltip: 'Edit',
-                handler: function(grid, rowIndex, colIndex) {
-                	var rec = grid.getStore().getAt(rowIndex);
-                	var recid = rec.get('documentId');
-                	var recdate= rec.get('edate');
-                	var recname= rec.get('documentName');
-                	var location = "../user/updatedocument.html?documentId="+recid+"&documentDate="+recdate+"&documentName="+recname;
-					window.open(location, '_blank');
-                }
-            }]
-        },
-        {
-            xtype:'actioncolumn',
-            width:'5%',
-			//text:'Mail',
-			align:'center',
-            items: [{
-                icon: '../resources/icon/validate.png',
-                tooltip: 'Validate',
-                handler: function(grid, rowIndex, colIndex) {
-                	var rec = grid.getStore().getAt(rowIndex);
-                	var recid = rec.get('documentId');
-                	var recdate= rec.get('edate');
-                	var recname= rec.get('documentName');
-                	var location = "../user/savenredirect?documentId="+recid+"&documentDate="+recdate;
-					window.open(location, '_blank');
-                }
-            }]
-        },{
-            xtype:'actioncolumn',
-            width:'5%',
-			//text:'Mail',
-			align:'center',
-            items: [{
+            },{
                 icon: '../resources/icon/remove.png',
-                tooltip: 'Delete',
+                tooltip: 'Deactivate',
                 handler: function(grid, rowIndex, colIndex) {
-                		var rec = grid.getStore().getAt(rowIndex);
-                	var result = deleteDocument(rec.get('documentId'),rec.get('edate'));
-         
-                		 grid.store.removeAt(rowIndex);
-                	
-                		store.load();
+                	 var rec = grid.getStore().getAt(rowIndex);
+                    activation('deactivateuser',rec.get('user_id'));
+                    rec.set('active',false);
+                    store.load();
                 }
             }]
         }],
 		  bbar: Ext.create('Ext.PagingToolbar', {
             store: store,
             displayInfo: true,
-            emptyMsg: "No document created "
+            emptyMsg: "No User registered"
         }),
         renderTo: 'form-ct'
     });

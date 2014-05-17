@@ -76,6 +76,7 @@ public class Mail {
          message.addRecipient(Message.RecipientType.TO,
                                   new InternetAddress(to));
          message.setSubject(subject); 
+         message.setContent(body, "text/html; charset=utf-8");
          BodyPart messageBodyPart = new MimeBodyPart();
          messageBodyPart.setText(body);
          Multipart multipart = new MimeMultipart();

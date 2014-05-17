@@ -24,9 +24,25 @@ public class LawyerAccount {
 			lawyer = null;
 			logger.error("Caught Exception while finding Lawyer from email address");
 		}
-		finally{
-		em.close();	
+		
+		return lawyer;
+	}
+	
+	public Lawyer getLawyerById(int id)
+	{
+		Lawyer lawyer;
+		lawyer = null;
+		EntityManager em = EntityManagerListener.getEntityManager();
+		try {
+			EntityTransaction etx = em.getTransaction();
+			etx.begin();
+			lawyer = em.find(Lawyer.class, id);
+			etx.commit();
+		} catch (Exception e) {
+			lawyer = null;
+			logger.error("Caught Exception while finding Lawyer from email address");
 		}
+		
 		return lawyer;
 	}
 
